@@ -14,6 +14,13 @@
 
 * Test how data size , remove and filter word, any kind of application have effects on accuracy.
 * UI?
+## 11/15
+* advance classifier
+* improve function
+* movie analysis
+* web implementation
+* deadline: 11/17(二)
+
 
 ##Work_Division
 ###11/11
@@ -21,6 +28,12 @@
 2. tokenization + removing and filter + stemming
 3. constructing n-gram algorithm
 4. naive bayes algorithm
+
+###11/15
+1. Twitter API & SVM algorithm analysis and implementation(丟入input輸出output)(凱哥)
+2. tokenization + removing and filter + stemming(文彬)
+3. constructing n-gram algorithm + basic program GUI(振安)
+4. naive bayes algorithm(丁錦)
 
 
 * [due day: 11/15(Sunday)]
