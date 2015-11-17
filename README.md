@@ -36,10 +36,19 @@
 4. naive bayes algorithm(丁錦)
 
 
-* [due day: 11/15(Sunday)]
+* [due day: 11/15(Tuesday)]
 * finding papers for better implementation
 * next week: Chinese,SVM,CRF,application(use algorithm on website),analysis
 
+###11/17
+1. naive bayes + entropy ->(丁錦)
+2. 前處理 and feature(stoping word, stemming) + SVM ->(文彬+振安)
+3. data mining(twitter... or other)並做資料結構(分類:hashtag,文章內容,文章極性) +
+   定義一句話的accurate answer(先用表情判斷一文章的極性) +
+   研究lexicon＆polarity 做極性判斷(正中負分細改進？ 分數判斷極性傾向？ 分數判斷依據？)
+
+##problem
+* how to define the accuracy and accurate answer?
 
 ##reference && papers
 * https://cs.stanford.edu/people/alecmgo/papers/TwitterDistantSupervision09.pdf
@@ -50,3 +59,8 @@
 * http://hughchristensen.co.uk/papers/socialNetworking/Twitter%20Sentiment%20Analysis.pdf
 * http://www.sentimentor.co.uk
 * http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/
+* http://link.springer.com/chapter/10.1007/978-3-642-28604-9_39
+* http://arxiv.org/pdf/1003.5699.pdf
+* http://aclweb.org/anthology/S/S13/S13-2052.pdf
+* http://nlp.csai.tsinghua.edu.cn/site2/images/file/xlx.pdf
+* http://www.aclweb.org/anthology/H/H05/H05-1.pdf#page=383
