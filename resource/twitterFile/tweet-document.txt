@@ -1,31 +1,30 @@
 本文檔使用twitter4j API 抓取用戶的tweets.
-tweet1.txt -> 10009組資料
-tweet2.txt -> 10007組資料
+tweet1.txt -> 10005組資料
+tweet2.txt -> 10008組資料
 
 格式：
-每個用戶的twitter內容,hashTag以及運用emoji判斷的polarity會用三個星號以及一個換行分開
+每個用戶的twitter內容,hashTag以及運用emoji判斷的polarity會用三個星號分開
 第一行 HashTag是用戶的文章中 所有的hashTag 每個分別列出並用空格隔開 若沒有hashTag 則不顯示東西
 第二行 Content是用戶的文章內容 以處理過換行 所有內容皆會顯示在同一行 每個單字用空格隔開
 第三行 Polarity是用emoji表情符號來判斷用戶文章的極性 有四種 分別為正(pos)、中(neu)、負(neg)、沒有分類(none) 此項目目前準確性很低 包含的表情符號不足 判斷的極性範圍不廣
 
 範例：
-HashTag: health cancer
-Content: Lock2Learn App Provides Higher Quality Screen Time By Quizzing Kids On Math, English Before They…
-Polarity: none
+health cancer
+Lock2Learn App Provides Higher Quality Screen Time By Quizzing Kids On Math, English Before They…
+none
 ***
 
-HashTag: 
-Content: me too!! 😆 lets chill 😊😊
-Polarity: pos
+me too!! 😆 lets chill 😊😊
+pos
 ***
 
-HashTag: 3
-Content: 😍Rihanna's Top 10 Naked Poses!😍 Though.... Check out😎👉
-Polarity: pos
+3
+😍Rihanna's Top 10 Naked Poses!😍 Though.... Check out😎👉
+pos
 ***
 
 (不準的範例)
-HashTag: 
-Content: LLOOOVVVEEE YYYOOOU 😭😭😭😭
-Polarity: neg
+
+LLOOOVVVEEE YYYOOOU 😭😭😭😭
+neg
 ***
