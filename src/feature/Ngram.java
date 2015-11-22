@@ -8,7 +8,7 @@ import common.Constant;
 
 public class Ngram {
 	int N = Constant.N;
-	String  space =" ";
+	String space =" ";
 	
 	//return map
 	public Map<String, Integer> createNgram(ArrayList<?> datas){
