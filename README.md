@@ -14,6 +14,7 @@
 
 * Test how data size , remove and filter word, any kind of application have effects on accuracy.
 * UI?
+
 ## 11/15
 * advance classifier
 * improve function
