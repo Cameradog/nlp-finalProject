@@ -14,6 +14,7 @@
 
 * Test how data size , remove and filter word, any kind of application have effects on accuracy.
 * UI?
+
 ## 11/15
 * advance classifier
 * improve function
@@ -21,6 +22,10 @@
 * web implementation
 * deadline: 11/17(二)
 
+## 11/22
+* try to implement maximum entropy
+* constructive n-gram
+* add new feature: linear-lambda ...
 
 ##Work_Division
 ###11/11
@@ -46,6 +51,38 @@
 3. data mining(twitter... or other)並做資料結構(分類:hashtag,文章內容,文章極性) +
    定義一句話的accurate answer(先用表情判斷一文章的極性) +
    研究lexicon＆polarity 做極性判斷(正中負分細改進？ 分數判斷極性傾向？ 分數判斷依據？)
+
+### 11/22
+1. smoothing
+2. define polarity using emoji and hashtag.
+3. NY times and washington post is objective? define what is objective.
+4. 將同一人,具有不同情感的文句,切成兩份不同的情感的文句
+
+## improvement
+1. Feature improvement
+2. Pre-processing improvement
+  1. add more stop words
+  2. Strange word changing like transforming “happyyyy” to “happy”
+3. Both sentiment words Hashmap and the emoji in Tweet are used to define the tweet
+4. Naïve Bayes algorithm improvement
+  1. Laplacian Smoothing
+  2. Max Entropy improvement
+5. Define tweet that have several sentence with different emoji
+  * Split an tweet into several sentences and calculate the sentences with emoji(the paper drops tweets with contradict emoji)
+  * if positive sentences’ number >negative sentences’ number the tweet is positive
+  * the tweet is negative
+  (the result may influence the weight of some tweets in corpus)
+6. Define the degree of emotion of a tweet like
+  * “very happy”
+  * “happy”
+  * ”neutral”
+  * ”unhappy”
+  * “very unhappy”
+7. A sentence with a lot of emoji, define the sentence based on number of emoji, for   example, a sentence with x “:)” and y “:(”, if x>y, the sentence is positive
+8. Define Subject related tweets and compare the result with non-subject tweet’s result
+
+
+
 
 ##problem
 * how to define the accuracy and accurate answer?
