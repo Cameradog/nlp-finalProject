@@ -5,32 +5,33 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Hashtable;
 
+import common.Constant;
+
+import fileService.ReadFileService;
+
 public class Stopwords {
+	static String testingSentence = "Hello, there are many apples.";
 	
-	public static void main(String[] args) throws IOException{//也是測試用，應該可刪除
-		Stopwords s = new Stopwords();
-		s.stopword();
+	//for testing 
+	public static void main(String[] args) throws IOException{
+		//Stopwords s = new Stopwords();
+		//s.createStopwordsBank();
+		//s.removeStopword(testingSentence);
 	}
 	
-	public String stopword() throws IOException{
-		//讀取stopword.txt製作成hashtable
-		BufferedReader br = new BufferedReader(new FileReader("english.stop.txt"));
-		Hashtable stopwords = new Hashtable();
-		String word;
-		while((word = br.readLine()) != null){
-			stopwords.put(word, 0);
-		}
-		
-		String line = "Hello, there are many apples.";//測資
+	public void createStopwordsBank(){
+		ReadFileService.getServ().readStopWordFile("resource/english.stop.txt");
+	}
+	
+	public String getRemovedStopword(String line) throws IOException{			
 		String newline = "";
-		String[] token = line.toLowerCase().split(" ");//轉換成小寫後，進行切割，一樣也只切空白，所以可能導致和符號相連的沒辦法過濾
+		String[] token = line.toLowerCase().split(" ");
 		for(String e1: token){
-			if(!stopwords.containsKey(e1)){
+			//has appear
+			if(!Constant.stopwords.containsKey(e1)){
 				newline += e1 + " ";
 			}
 		}
-		System.out.print(newline);
-		
 		return newline;
 	}
 }

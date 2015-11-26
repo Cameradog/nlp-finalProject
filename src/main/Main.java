@@ -1,24 +1,57 @@
 package main;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import common.Constant;
 import data.FieldType;
-import fileService.ReadFile;
+import data.FourField;
+import feature.Stopwords;
+import fileService.ReadFileService;
 
 public class Main {
-	ReadFile r;
+	ReadFileService r;
+	Stopwords stopwords;
 	public static void main(String[] args){
 		new Main();
 	}
 	
 	public Main(){
-		r = new ReadFile();
 		start();
 	}
 	
 	public void start(){
-		readFile("resource/twitterFile/tweet.txt" , FieldType.four);
+		readTrainingData("resource/twitterFile/tweet.txt" , FieldType.four);
+		preProcessing();
+		
+		for(int i =0 ; i < Constant.trainingData.size(); i++){
+			FourField f = Constant.trainingData.get(i);
+
+		}
+		
+		
 	}
 	
-	public void readFile(String path, FieldType t){
-		r.readFile(path , t);
+	public void readTrainingData(String path, FieldType t){
+		ReadFileService.getServ().readTrainingData(path , t);
+	}
+	
+	public void preProcessing(){
+		stopwords = new Stopwords();
+		stopwords.createStopwordsBank();
+		
+		for(int i = 0 ; i < Constant.trainingData.size() ;i++){
+			String content = Constant.trainingData.get(i).content;
+
+			try {
+				String newContent = stopwords.getRemovedStopword(content);
+				Constant.trainingData.get(i).content = newContent;
+				//System.out.println(content +" !!!!!!!!!!!!" +newContent);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }
