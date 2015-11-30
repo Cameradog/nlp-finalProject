@@ -6,5 +6,7 @@
 	<classpathentry kind="lib" path="API/stanford-segmenter-3.5.2-sources.jar"/>
 	<classpathentry kind="lib" path="twitterAPI/twitter4j-core-4.0.4.jar"/>
 	<classpathentry kind="lib" path="twitterAPI/twitter4j-stream-4.0.4.jar"/>
+	<classpathentry kind="lib" path="API/stanford-postagger-3.5.2-sources.jar"/>
+	<classpathentry kind="lib" path="API/stanford-postagger-3.5.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

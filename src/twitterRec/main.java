@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import javax.print.attribute.standard.OutputDeviceAssigned;
 import javax.xml.transform.Templates;
 
+import twitter4j.Query;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusAdapter;
@@ -36,11 +37,9 @@ public class main {
 		main main = new main();
 		main.output();
 		TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
-        
 		//twitter status listener
 		StatusListener listener = new StatusListener() {
             public void onStatus(Status status) {
-//                System.out.println("Counter: "+counter+"  /"+ status.getUser().getScreenName() + " - " + status.getText());
                 main.disassemble(status);
                 if(main.dataCounter(status,counter)){
                 		//nothing
@@ -73,9 +72,7 @@ public class main {
 			}
         };
         twitterStream.addListener(listener);
-//     	FilterQuery filterQuery = new FilterQuery();
-        twitterStream.sample("en");
-        
+        twitterStream.sample("en");        
 	}
 	
 	//re-construct twitter status into our format
