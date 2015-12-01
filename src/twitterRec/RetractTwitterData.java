@@ -49,7 +49,9 @@ public class RetractTwitterData {
 					String result = (String)((JavascriptExecutor) driver)
 							.executeScript("return document.getElementsByClassName('tweet-text')["
 									+ i + "].innerHTML");
-					System.out.println(result);
+					String time = (String)((JavascriptExecutor) driver)
+							.executeScript("return $('.js-short-timestamp')[" +i+"].innerHTML");
+					System.out.println(result +" " + time);
 				} catch(Exception e){
 					System.out.println("Not get");
 				}
@@ -84,7 +86,7 @@ public class RetractTwitterData {
 	 */
 	public void Force_Waiting() {
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(10000);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -92,7 +94,7 @@ public class RetractTwitterData {
 	
 	public void Force_Waiting_Longer(){
 		try {
-			Thread.sleep(7000);
+			Thread.sleep(15000);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
