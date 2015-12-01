@@ -11,7 +11,7 @@ import fileService.ReadFileService;
 
 public class Stopwords {
 	static String testingSentence = "Hello, there are many apples.";
-	
+
 	//for testing 
 	public static void main(String[] args) throws IOException{
 		//Stopwords s = new Stopwords();
@@ -23,7 +23,7 @@ public class Stopwords {
 		ReadFileService.getServ().readStopWordFile("resource/english.stop.txt");
 	}
 	
-	public String getRemovedStopword(String line) throws IOException{			
+	public String getRemovedStopword(String line){			
 		String newline = "";
 		String[] token = line.toLowerCase().split(" ");
 		for(String e1: token){

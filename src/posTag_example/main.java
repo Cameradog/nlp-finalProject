@@ -29,7 +29,7 @@ public class main {
 		System.out.println("## tag whole sentence ##");
 		System.out.println("Word/taggerForm");
 		wordsWithTag = m.tagger.tagTokenizedString(sampleWords2);
-		System.out.println(sampleWords2+"\r"+wordsWithTag);
+		System.out.println(sampleWords2+"\r333"+wordsWithTag);
 	}
 	
 }

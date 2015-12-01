@@ -13,11 +13,9 @@ public class Ngram {
 	//return map
 	public Map<String, Integer> createNgram(ArrayList<?> datas){
 		Map<String, Integer> dataMap = new HashMap<String, Integer>();
-		for(int i = 0 ; i < datas.size()-N ;i++ ){
-			
+		for(int i = 0 ; i < datas.size()-N ;i++ ){		
 			String str="";
-			for(int j = 1 ; j < N ; j++){
-				
+			for(int j = 1 ; j < N ; j++){			
 				if(j==0){
 					str += datas.get(i);
 				}

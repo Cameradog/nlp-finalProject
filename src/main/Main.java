@@ -39,19 +39,18 @@ public class Main {
 	public void preProcessing(){
 		stopwords = new Stopwords();
 		stopwords.createStopwordsBank();
+
 		
 		for(int i = 0 ; i < Constant.trainingData.size() ;i++){
+			
+			// stop words
 			String content = Constant.trainingData.get(i).content;
-
-			try {
-				String newContent = stopwords.getRemovedStopword(content);
-				Constant.trainingData.get(i).content = newContent;
-				//System.out.println(content +" !!!!!!!!!!!!" +newContent);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
+			String newContent = stopwords.getRemovedStopword(content);
+			Constant.trainingData.get(i).content = newContent;
+			
+			// pos tag
+			
+			
+		}	
 	}
 }
