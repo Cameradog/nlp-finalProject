@@ -51,7 +51,7 @@ public class RetractTwitterData {
 									+ i + "].innerHTML");
 					String time = (String)((JavascriptExecutor) driver)
 							.executeScript("return $('.js-short-timestamp')[" +i+"].innerHTML");
-					System.out.println(result +" " + time);
+					System.out.println("Time: " +time +"\n" + "Content: "+ result +"\n\n");
 				} catch(Exception e){
 					System.out.println("Not get");
 				}

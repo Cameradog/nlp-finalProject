@@ -12,6 +12,6 @@ public class FourField implements Field{
 		// TODO Auto-generated method stub
 		return 3;
 	}
-	
+
 
 }
