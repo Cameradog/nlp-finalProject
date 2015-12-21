@@ -9,7 +9,7 @@ import common.Constant;
 
 import fileService.ReadFileService;
 
-public class Stopwords {
+public class RemoveStopwords {
 	static String testingSentence = "Hello, there are many apples.";
 
 	//for testing 
@@ -23,7 +23,7 @@ public class Stopwords {
 		ReadFileService.getServ().readStopWordFile("resource/english.stop.txt");
 	}
 	
-	public String getRemovedStopword(String line){			
+	public String getLineWithNoStopwords(String line){			
 		String newline = "";
 		String[] token = line.toLowerCase().split(" ");
 		for(String e1: token){

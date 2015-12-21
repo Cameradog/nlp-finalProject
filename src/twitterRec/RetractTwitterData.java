@@ -70,6 +70,7 @@ public class RetractTwitterData {
 							.executeScript("return $('.js-short-timestamp')[" +i+"].innerHTML");
 //					System.out.println(result +" " + time);
 					disassemble(result,time);
+					System.out.println("Time: " +time +"\n" + "Content: "+ result +"\n\n");
 				} catch(Exception e){
 					System.out.println("Not get");
 				}
@@ -78,7 +79,7 @@ public class RetractTwitterData {
 			emptyArticle();
 			scrollDown();
 			Force_Waiting_Longer();
-			
+
 			Force_Waiting();
 		}
 
@@ -93,7 +94,7 @@ public class RetractTwitterData {
 		((JavascriptExecutor) driver)
 				.executeScript("window.scrollTo(0,document.body.scrollHeight);");
 	}
-	
+
 	public void scrollUp(){
 		((JavascriptExecutor) driver)
 		.executeScript("window.scrollTo(0,0);");
@@ -109,7 +110,7 @@ public class RetractTwitterData {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void Force_Waiting_Longer(){
 		try {
 			Thread.sleep(1000);
@@ -117,7 +118,7 @@ public class RetractTwitterData {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void disassemble(String content,String time){
 		String filterStr = "(href=)|(class=)|(src=)";
 		String splitStr = "<a|</a>|<b>|</b>|<img";
@@ -128,7 +129,7 @@ public class RetractTwitterData {
 		disassStr = content.split(splitStr);
 		tweets = "";
 		tweetCount++;
-		
+
 		for(int i=0; i<disassStr.length; i++){
 			matcher = pattern.matcher(disassStr[i]);
 			if(!matcher.find() && !disassStr[i].equals(" ") && !disassStr[i].equals("")){
@@ -140,22 +141,22 @@ public class RetractTwitterData {
 //						System.out.println("j: "+j+" "+disassStr2[j]);
 					}
 				}
-			}			
+			}
 		}
 		if((tweets.substring(tweets.length()-1)).equals(" ")){
 			tweets = tweets.substring(0,tweets.length()-1);
 		}
-		
+
 		System.out.println("tweet count: "+tweetCount);
 		System.out.println(tweets);
 		System.out.println(time);
 		System.out.println("***");
-		
+
 		output.println(tweets);
 		output.println("***");
 //		output.println();
 	}
-	
+
 	//output file
 	public void output(){
 		try {
@@ -167,5 +168,5 @@ public class RetractTwitterData {
 			e.printStackTrace();
 		}
 	}
-	
+
 }
