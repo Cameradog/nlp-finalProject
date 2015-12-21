@@ -1,5 +1,9 @@
 package classifer;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
 import opennlp.maxent.BasicContextGenerator;
 import opennlp.maxent.ContextGenerator;
 import opennlp.model.GenericModelReader;

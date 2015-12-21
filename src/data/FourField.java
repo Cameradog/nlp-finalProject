@@ -2,6 +2,8 @@ package data;
 
 import java.util.ArrayList;
 
+import data.Field;
+
 public class FourField implements Field{
 	public ArrayList<String> hashTag = new ArrayList<String>();
 	public String content;

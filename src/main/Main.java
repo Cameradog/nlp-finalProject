@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import classifer.MaxEnt_train;
 import common.Constant;
 import data.FieldType;
 import data.FourField;
@@ -17,6 +18,7 @@ public class Main {
 	RemoveStopwords rmvStopwords;
 	RemovePunctuation rmvPun;
 	CreateNgram crtNgram;
+	MaxEnt_train mt;
 	public static void main(String[] args){
 		new Main();
 	}
@@ -69,6 +71,12 @@ public class Main {
 		
 		//ngram
 		//n gram
-		Map<String,Integer> unigram = crtNgram.getNgramMap(Constant.trainingData,FieldType.four, 3);
+		Map<String,Integer> unigram = crtNgram.getNgramMap(Constant.trainingData,FieldType.four, 1);
+		
+		//training 
+		//mt = new MaxEnt_train();
+		//mt.tweetout();
+		//mt.training();
+		
 	}
 }
