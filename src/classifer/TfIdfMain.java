@@ -21,8 +21,8 @@ public class TfIdfMain {
     public static void main(String args[]) throws FileNotFoundException, IOException
     {
         DocumentParser dp = new DocumentParser();
-        dp.parseFiles("/Users/john821216/Desktop/text");
-        dp.tfIdfCalculator(); //calculates tfidf
-        dp.getCosineSimilarity(); //calculated cosine similarity   
+        //dp.parseFiles("/Users/john821216/Desktop/text");
+        //dp.tfIdfCalculator(); //calculates tfidf
+        //dp.getCosineSimilarity(); //calculated cosine similarity   
     }
 }

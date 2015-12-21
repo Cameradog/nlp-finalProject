@@ -43,8 +43,10 @@ public class DocumentParser {
                 }
                 String[] tokenizedTerms = sb.toString().replaceAll("[\\W&&[^\\s]]", "").split("\\W+");   //to get individual terms
                 for (String term : tokenizedTerms) {
+                		//System.out.println(term);
                     if (!allTerms.contains(term)) {  //avoid duplicate entry
                         allTerms.add(term);
+                        
                     }
                 }
                 termsDocsArray.add(tokenizedTerms);
@@ -68,6 +70,7 @@ public class DocumentParser {
                 idf = new TfIdf().idfCalculator(termsDocsArray, terms);
                 tfidf = tf * idf;
                 tfidfvectors[count] = tfidf;
+                System.out.println(terms +" " + tfidf +" " + tf +" " + idf);
                 count++;
             }
             tfidfDocsVector.add(tfidfvectors);  //storing document vectors;            

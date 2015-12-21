@@ -29,7 +29,7 @@ public class Main {
 	
 	public void start(){
 		
-		readTrainingData("resource/twitterFile/tweet.txt" , FieldType.four);
+		readTrainingData("resource/twitterFile/tweet1.txt" , FieldType.four);
 		preProcessing();
 		
 		for(int i =0 ; i < Constant.trainingData.size(); i++){
@@ -70,8 +70,11 @@ public class Main {
 		}	
 		
 		//ngram
-		//n gram
-		Map<String,Integer> unigram = crtNgram.getNgramMap(Constant.trainingData,FieldType.four, 1);
+		//n gram with val
+		Map<String,Integer> unigramVal = crtNgram.getNgramMapWithValue(Constant.trainingData,FieldType.four, 1);
+		
+		//n gram with polarity
+		Map<String,Integer> unigramPol = crtNgram.getNgramMapWithPolarity(Constant.trainingData,FieldType.four, 1);
 		
 		//training 
 		//mt = new MaxEnt_train();
