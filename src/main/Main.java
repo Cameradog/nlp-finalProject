@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import classifer.MaxEnt_predict;
 import classifer.MaxEnt_train;
 import common.Constant;
 import data.FieldType;
@@ -19,6 +20,7 @@ public class Main {
 	RemovePunctuation rmvPun;
 	CreateNgram crtNgram;
 	MaxEnt_train mt;
+	MaxEnt_predict mp;
 	public static void main(String[] args){
 		new Main();
 	}
@@ -75,11 +77,16 @@ public class Main {
 		
 		//n gram with polarity
 		Map<String,Integer> unigramPol = crtNgram.getNgramMapWithPolarity(Constant.trainingData,FieldType.four, 1);
-		
+
 		//training 
-		//mt = new MaxEnt_train();
-		//mt.tweetout();
-		//mt.training();
+		mt = new MaxEnt_train();
+		mt.output_train(3);//input num for Ngram, 0 for not doing Ngram
+		mt.training();
+		
+		//predict
+		mp = new MaxEnt_predict();
+		mp.predict(3);//input num for Ngram, 0 for not doing Ngram
+		
 		
 	}
 }

@@ -21,28 +21,33 @@ import opennlp.model.EventStream;
 import opennlp.model.OnePassRealValueDataIndexer;
 
 public class MaxEnt_train {
-	public static void main(String[] args){
-		//
-	}	
-	public void tweetout(){
-		BufferedReader br;
-		BufferedWriter bw;
+	public void output_train(int N){
 		try{
-			br = new BufferedReader(new FileReader("resource/twitterFile/tweet.txt"));
-			bw = new BufferedWriter(new FileWriter("tweetforMaxent.txt"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("tweetforMaxent.txt"));
 			ArrayList<FourField> trainingData = Constant.trainingData;
 			for(int i = 0; i < trainingData.size() ; i++ ){
 				String content = trainingData.get(i).content;
 				String label = trainingData.get(i).polarity;
-				bw.write(content.trim());
-				bw.write(" " + label);
-				bw.newLine();	
-				System.out.println(content);
+				String[] words = content.split(" ");
 				
+				if(N != 0 && words.length >= N){
+					for(int j = 0; j < words.length; j++){//get ngram
+						String ngram = "";
+						if(j == words.length - N + 1) break;
+						for(int k = j; k < N + j; k++){
+							ngram += words[k] + " ";
+						}
+						bw.write(ngram.trim() + " " + label);
+						bw.newLine();
+					}	
+				} else {
+					bw.write(content.trim());
+					bw.write(" " + label);
+					bw.newLine();	
+				}
+				System.out.println(content);
 			}
 			bw.close();
-			br.close();
-		//}
 		}catch(IOException e){
 			//;
 		}
@@ -67,10 +72,5 @@ public class MaxEnt_train {
 		}catch(IOException e) {
 			//;
 		}
-	}
-	
-	public void ngram(){
-		CreateNgram crtNgram = new CreateNgram();
-		//Map crtNgram.getNgramMap(Constant.trainingData, 3);
 	}
 }
