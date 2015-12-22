@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import twitterRec.Paper_emoticon;
 import lexicon.CreateLexiconMap;
 import classifer.MaxEnt_predict;
 import classifer.MaxEnt_train;
 import common.Constant;
 import data.FieldType;
 import feature.CreateNgram;
+import feature.RemoveEmoji;
 import feature.RemovePunctuation;
 import feature.RemoveStopwords;
 import feature.Tokenization;
@@ -19,11 +21,13 @@ public class Main {
 	ReadFileService r;
 	RemoveStopwords rmvStopwords;
 	RemovePunctuation rmvPun;
+	RemoveEmoji re;
 	CreateNgram crtNgram;
 	MaxEnt_train mt;
 	MaxEnt_predict mp;
 	CreateLexiconMap cl;
 	Tokenization ti;
+	Paper_emoticon pm;
 	public static void main(String[] args){
 		new Main();
 	}
@@ -31,12 +35,15 @@ public class Main {
 	public Main(){
 		cl = new CreateLexiconMap();
 		ti = new Tokenization();
+		pm = new Paper_emoticon();
+		re = new RemoveEmoji();
 		start();
 	}
 	
 	public void start(){
-		readTrainingData("resource/twitterFile/tweet_RAWW.txt" , FieldType.four);
-		createLexiconMap();
+		readTrainingDataPaperEmotion("resource/twitterFile/tweets_emoji.txt", false);
+		//readTrainingData("resource/twitterFile/tweet_RAWW.txt" , FieldType.four);
+		//createLexiconMap();
 		preProcessing();	
 	}
 	
@@ -44,8 +51,16 @@ public class Main {
 		ReadFileService.getServ().readTrainingData(path , t);
 	}
 	
+	public void readTrainingDataPaperEmotion(String path, boolean hasEmoji){
+		pm.execute(path, hasEmoji);
+	}
+	
 	public void createLexiconMap(){	
 		cl.execute();
+	}
+	
+	public void removeEmojiInTwitterData(){
+		
 	}
 	
 	public void preProcessing(){
@@ -67,22 +82,22 @@ public class Main {
 			Constant.trainingData.get(i).content = newContent;
 			
 			String line = Constant.trainingData.get(i).content;
-			
+			/*
 			//lexicon
 			String polarity = cl.getLinePolarity(line);
 			if(polarity.equals("ignore")){
 				Constant.trainingData.remove(i);
 			} else{
 				Constant.trainingData.get(i).polarity = polarity;
-			}		
+			}	*/	
 		}	
-		System.out.println(Constant.trainingData.size());
-		System.out.println(CreateLexiconMap.count);
+		//System.out.println(Constant.trainingData.size());
+		//System.out.println(CreateLexiconMap.count);
 		for(int i = 0 ; i < Constant.trainingData.size() ;i++){		
 			System.out.println(Constant.trainingData.get(i).content +" " + Constant.trainingData.get(i).polarity);		
 		}	
 		
-		MEClassifier();
+		//MEClassifier();
 		//training
 		//me
 		//mt = new MaxEnt_train();
