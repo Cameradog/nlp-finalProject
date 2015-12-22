@@ -12,7 +12,19 @@ public class PosTag {
 
 	public String getWordPosTag(String word){
 		String tag = tagger.tagTokenizedString(word).split("_")[1];
-		System.out.println(tag);
-		return tag;
+		return getPosTagList(tag);
+	}
+	
+	public String getPosTagList(String posTag) {
+		if (posTag.contains("JJ")) {
+			return "adj";
+		} else if (posTag.contains("NN")) {
+			return "noun";
+		} else if( posTag.contains("RB")){
+			return "adverb";
+		} else if( posTag.contains("VB")){
+			return "verb";
+		}
+		return null;
 	}
 }

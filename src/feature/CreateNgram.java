@@ -53,12 +53,12 @@ public class CreateNgram {
 
 				if (dataMap.get(str) == null) {
 					dataMap.put(str, 1);
-					System.out.println("Str: " + str + " val: "
-							+ dataMap.get(str));
+					//System.out.println("Str: " + str + " val: "
+					//		+ dataMap.get(str));
 				} else {
 					dataMap.put(str, dataMap.get(str) + 1);
-					System.out.println("Str: " + str + " val: "
-							+ dataMap.get(str));
+					//System.out.println("Str: " + str + " val: "
+					//		+ dataMap.get(str));
 				}
 			}
 
@@ -96,8 +96,8 @@ public class CreateNgram {
 					} else if(polarity.equals("neu")){
 					    polarityMap.put(str, 0);
 					}
-					System.out.println("Str: " + str +
-							" "+ polarityMap.get(str));
+					//System.out.println("Str: " + str +
+					//		" "+ polarityMap.get(str));
 				} else if(polarityMap.get(str)!=null && !polarity.equals("none")){
 					//dataMap.put(str, dataMap.get(str) + 1);
 					if(polarity.equals("pos")){
@@ -107,7 +107,7 @@ public class CreateNgram {
 					} else if(polarity.equals("neu")){
 					    polarityMap.put(str, polarityMap.get(str) + 0);
 					}
-					System.out.println("Str: " + str +  " " + polarityMap.get(str));
+					//System.out.println("Str: " + str +  " " + polarityMap.get(str));
 				}
 			}
 

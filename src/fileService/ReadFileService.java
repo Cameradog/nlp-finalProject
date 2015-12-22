@@ -6,11 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import common.Constant;
-
 import data.Field;
 import data.FieldType;
 import data.FourField;
 import data.FourFieldService;
+import data.Word;
 
 public class ReadFileService {
 	private static ReadFileService readFileService = null;
@@ -52,14 +52,38 @@ public class ReadFileService {
 						}
 					}
 					Constant.trainingData.add(f);
-					// System.out.println(f.hashTag.get(0) +" A" + f.content
-					// +"ABBBB "+ f.polarity +"A");
 				}
 			}
 			// close stream
 			reader.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
+		}
+	}
+	
+	public void readLexiconDatabese(String path){
+		BufferedReader reader;
+		String line;
+		try {
+			reader = new BufferedReader(new FileReader(path));
+			while ((line = reader.readLine()) != null) {
+				Word w = new Word();
+				w.word = line.split("\\s")[2].split("=")[1];
+				w.pos = line.split("\\s")[3].split("=")[1];
+				String polarity = line.split("\\s")[line.split("\\s").length-1].split("=")[1];
+				
+				/*
+				if(!(w.pos.equals("noun") || w.pos.equals("adj") || w.pos.equals("verb") || w.pos.equals("adverb"))){
+					System.out.println(w.pos);
+				}*/
+				Constant.lexicon.put(w, polarity);
+				System.out.println("82 " +line);
+			}
+			
+			reader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
