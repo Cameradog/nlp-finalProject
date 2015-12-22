@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import lexicon.CreateLexiconMap;
+import classifer.MaxEnt_predict;
 import classifer.MaxEnt_train;
 import common.Constant;
 import data.FieldType;
@@ -20,6 +21,7 @@ public class Main {
 	RemovePunctuation rmvPun;
 	CreateNgram crtNgram;
 	MaxEnt_train mt;
+	MaxEnt_predict mp;
 	CreateLexiconMap cl;
 	Tokenization ti;
 	public static void main(String[] args){
@@ -33,7 +35,7 @@ public class Main {
 	}
 	
 	public void start(){
-		readTrainingData("resource/twitterFile/tweet_RAW_sample.txt" , FieldType.four);
+		readTrainingData("resource/twitterFile/tweet_RAWW.txt" , FieldType.four);
 		createLexiconMap();
 		preProcessing();	
 	}
@@ -80,7 +82,7 @@ public class Main {
 			System.out.println(Constant.trainingData.get(i).content +" " + Constant.trainingData.get(i).polarity);		
 		}	
 		
-		
+		MEClassifier();
 		//training
 		//me
 		//mt = new MaxEnt_train();
@@ -99,13 +101,23 @@ public class Main {
 	}
 	
 	public void createNgram(int n ){
-		crtNgram = new CreateNgram();
-		
+		crtNgram = new CreateNgram();	
 		//ngram
 		//n gram with val
 		Map<String,Integer> unigramVal = crtNgram.getNgramMapWithValue(Constant.trainingData,FieldType.four, 1);
 		
 		//n gram with polarity
 		Map<String,Integer> unigramPol = crtNgram.getNgramMapWithPolarity(Constant.trainingData,FieldType.four, 1);
+	}
+	
+	public void MEClassifier(){
+		//training 
+		mt = new MaxEnt_train();
+		mt.output_train(0);//input num for Ngram, 0 for not doing Ngram
+		mt.training();
+		
+		//predict
+		mp = new MaxEnt_predict();
+		mp.predict(0);//input num for Ngram, 0 for not doing Ngram
 	}
 }
