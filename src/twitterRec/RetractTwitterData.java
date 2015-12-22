@@ -20,13 +20,13 @@ import selenium.actions.Common;
 
 public class RetractTwitterData {
 	static PrintWriter output;
-	String filename = "tweet";
+	String filename = "news_test";
 	String tweets;
 	int tweetCount = 0;
 	Pattern pattern;
 	Matcher matcher;
 	WebDriver driver;
-	String url = "https://twitter.com/search?f=tweets&vertical=default&q=from%3Anytimes%20since%3A2015-01-01%20until%3A2015-11-29&src=typd";
+	String url = "https://twitter.com/search?f=tweets&vertical=default&q=from%3AIndependent%20since%3A2015-01-01%20until%3A2015-12-22&src=typd";
 	Common c;
 
 	public static void main(String[] args) {
@@ -121,7 +121,7 @@ public class RetractTwitterData {
 
 	public void disassemble(String content,String time){
 		String filterStr = "(href=)|(class=)|(src=)";
-		String splitStr = "<a|</a>|<b>|</b>|<img";
+		String splitStr = "<a|</a>|<b>|</b>|<img|<span|</span>";
 		String splitStr2 = " |\r|\n|\r\n";
 		String[] disassStr;
 		String[] disassStr2;
