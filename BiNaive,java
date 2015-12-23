@@ -1,8 +1,8 @@
-package binaive;
+package BiNaive;
 
 import java.util.HashMap;
 import java.util.Set;
-
+import java.lang.Math;//~~~~~~~~~~~~~~~~~~~~~~~
 public class BiNaive {
 
     public static void main(String[] args) {
@@ -12,6 +12,8 @@ public class BiNaive {
         String s2;
         String s3 = "abcdefghijklmn";//negative
         String s4;
+        String s5="abcopqrtuvwxy";
+        String s6;
         HashMap<Character, Integer> map = new HashMap<Character, Integer>();//positive unigram hashmap
         char c;
         for (int i = 0; i < s.length() - 1; i++) {
@@ -32,7 +34,18 @@ public class BiNaive {
                 Integer in = map3.get(c);
                 map3.put(c, in.intValue() + 1);
             }
-            System.out.println(c+ " " +map3.get(c));
+        }
+                
+        HashMap<Character, Integer> map5 = new HashMap<Character, Integer>();//negative unigram hashmap
+        for (int i = 0; i < s5.length() ; i++) {
+            c = s5.charAt(i);
+            if (map5.get(c) == null) {
+                map5.put(c, 1);
+            } else {
+                Integer in = map5.get(c);
+                map5.put(c, in.intValue() + 1);
+            }
+            System.out.println(c+ "$$  " +map5.get(c));
         }
 
         HashMap<String, Integer> map2 = new HashMap<String, Integer>();//positive bigram hashmap
@@ -86,31 +99,73 @@ public class BiNaive {
             V2 = V2 + 1;
 
         }
+        
+         HashMap<String, Integer> map6 = new HashMap<String, Integer>();//positive bigram hashmap
+
+        //char c;
+        char[] charArray3 = s5.toCharArray();
+        for (int i = 0; i < charArray3.length - 1; i++) {
+            s6 = "";
+            s6 += charArray3[i];
+            s6 += charArray3[i + 1];
+            if (map6.get(s6) == null) {
+                map6.put(s6, 1);
+            } else {
+                Integer in = map6.get(s6);
+                map6.put(s6, in.intValue() + 1);
+            }
+        }
+
+        Set<String> set3 = map6.keySet();
+        int count3 = 0;
+        int V3 = 0;
+        for (String ch : set3) {
+            System.out.println(ch + " " + map6.get(ch));
+            count3 = count3 + map6.get(ch);
+            V3 = V3 + 1;
+
+        }
 
         double BiProb = 1;
-        String test = "abc";
+        String test = "a b c";
         double BiProb2 = 1;
-
-        for (int i = 0; i < test.length() - 1; i++) {
-            String str1 = String.valueOf(test.charAt(i));
-            String str2 = String.valueOf(test.charAt(i + 1));
+        double BiProb3=1;
+        String [] strArray = test.split(" ");
+        for (int i = 0; i < strArray.length - 1; i++) {
+            String str1 = strArray[i];
+            String str2 = strArray[i+1];
             if (map2.get(str1 + str2) != null) {
-                BiProb = BiProb * (map2.get(str1 + str2) + 1) / (map.get(test.charAt(i)) + V);//Laplace smoothing add-1
-            } else {
-                BiProb = BiProb * 1 / (map.get(test.charAt(i)) + V);
+                if(map.get(strArray[i])!=null){
+                BiProb = BiProb * (map2.get(str1 + str2) + 1) / (map.get(strArray[i]) + V);}//Laplace smoothing add-1
+                else 
+                     BiProb = BiProb * (map2.get(str1 + str2) + 1) /  V;
+            } else {if(map.get(strArray[i])!=null){
+                BiProb = BiProb * 1 / (map.get(strArray[i]) + V);}
+            else 
+                BiProb = BiProb * 1 /  V;
             }
-            if(map4.get(str1 + str2) != null){
-                BiProb2 = BiProb2 * (map4.get(str1 + str2) + 1) / (map3.get(test.charAt(i)) + V2);
+            //System.out.println(BiProb);
+            if(map4.get(str1 + str2) != null && map3.get(strArray[i])!=null){
+                BiProb2 = BiProb2 * (map4.get(str1 + str2) + 1) / (map3.get(strArray[i]) + V);}//Laplace smoothing add-1
+            else if(map4.get(str1 + str2) != null && map3.get(strArray[i])==null) 
+            {         BiProb2 = BiProb2 * (map4.get(str1 + str2) + 1) /  V;
+            } 
+            else if(map3.get(strArray[i])!=null && map3.get(strArray[i])!=null){
+                BiProb2 = BiProb2 * 1 / (map3.get(strArray[i]) + V);}
+            else 
+                BiProb2 = BiProb2 * 1 /  V;
             }
-            else
-            BiProb2 = BiProb2 * 1 / (map3.get(test.charAt(i)) + V2);
-        }
         //compare
-        if (BiProb > BiProb2) {
+        System.out.println(BiProb3);
+        double Prob=Math.max(BiProb,Math.max(BiProb2, 0) );
+        if (Prob == BiProb) {
             Sentiment = "Postive";
-        } else {
+        } else if (Prob == BiProb2){
             Sentiment = "Negative";
         }
+        else
+            Sentiment= "Objective";
+        
         System.out.println(Sentiment);
 
     }
