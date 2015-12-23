@@ -65274,7 +65274,11 @@ wonder neu
 year neu
 talkin neu
 bowt neu
+<<<<<<< HEAD
 time pos
+=======
+ti̇me pos
+>>>>>>> 2dedc57e8aed48e819f4aeb68e46c2a312bd2a22
 retweet pos
 forward pos
 biggest pos
@@ -166709,7 +166713,11 @@ wonder neu
 year neu
 talkin neu
 bowt neu
+<<<<<<< HEAD
 time pos
+=======
+ti̇me pos
+>>>>>>> 2dedc57e8aed48e819f4aeb68e46c2a312bd2a22
 retweet pos
 forward pos
 biggest pos
