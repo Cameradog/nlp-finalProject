@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import twitterRec.Improved_emoticon;
 import twitterRec.Paper_emoticon;
 import lexicon.CreateLexiconMap;
 import classifer.MaxEnt_predict;
@@ -28,6 +29,7 @@ public class Main {
 	CreateLexiconMap cl;
 	Tokenization ti;
 	Paper_emoticon pm;
+	Improved_emoticon ie;
 	public static void main(String[] args){
 		new Main();
 	}
@@ -37,11 +39,13 @@ public class Main {
 		ti = new Tokenization();
 		pm = new Paper_emoticon();
 		re = new RemoveEmoji();
+		ie = new Improved_emoticon();
 		start();
 	}
 	
 	public void start(){
-		readTrainingDataPaperEmotion("resource/twitterFile/tweets_emoji.txt", false);
+		//readTrainingDataPaperEmotion("resource/twitterFile/tweet_RAW_2.txt", true);
+		readTrainingDataImprovedEmoticon("resource/twitterFile/tweet_RAW_2.txt", false);
 		//readTrainingData("resource/twitterFile/tweet_RAWW.txt" , FieldType.four);
 		//createLexiconMap();
 		preProcessing();	
@@ -51,8 +55,12 @@ public class Main {
 		ReadFileService.getServ().readTrainingData(path , t);
 	}
 	
-	public void readTrainingDataPaperEmotion(String path, boolean hasEmoji){
+	public void readTrainingDataPaperEmoticon(String path, boolean hasEmoji){
 		pm.execute(path, hasEmoji);
+	}
+	
+	public void readTrainingDataImprovedEmoticon(String path, boolean hasEmoji){
+		ie.execute(path, hasEmoji);
 	}
 	
 	public void createLexiconMap(){	
@@ -81,6 +89,11 @@ public class Main {
 			//update
 			Constant.trainingData.get(i).content = newContent;
 			
+			//remove if white space
+			boolean isWhitespace = newContent.matches("^\\s*$");
+			if(isWhitespace){
+				Constant.trainingData.remove(i);
+			}
 			String line = Constant.trainingData.get(i).content;
 			/*
 			//lexicon
