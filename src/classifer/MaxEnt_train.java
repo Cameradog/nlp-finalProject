@@ -30,7 +30,16 @@ public class MaxEnt_train {
 				String label = trainingData.get(i).polarity;
 				String[] words = content.split(" ");
 				
-				if(N != 0 && words.length >= N){
+				if(N == 3){//unigram + bigram
+					for(int j = 0; j < words.length; j++){
+						bw.write(words[j] + " " + label);//unigram
+						bw.newLine();
+						
+						if(j == words.length - 1) break;
+						bw.write(words[j] + " " + words[j+1]);
+						bw.newLine();
+					}
+				}else if(N != 0 && words.length >= N){
 					for(int j = 0; j < words.length; j++){//get ngram
 						String ngram = "";
 						if(j == words.length - N + 1) break;

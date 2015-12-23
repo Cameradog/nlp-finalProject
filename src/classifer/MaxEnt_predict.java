@@ -40,7 +40,42 @@ public class MaxEnt_predict {
 				MapforNgram.put(line, 0);
 				String[] words = line.split(" ");
 				
-				if(N != 0 && words.length >= N){//for ngram
+				if(N == 3){
+					for(int i = 0; i < words.length; i++){//get ngram
+						String unigram = words[i] + " ";
+						double[] uiocs = _model.eval(unigram.split(" ")); //ocs: 每一個instance的top-n結果的信心值
+						
+						if(_model.getBestOutcome(uiocs).equals("pos"))
+							MapforNgram.put(line, MapforNgram.get(line) + 1);
+						else if(_model.getBestOutcome(uiocs).equals("neg"))
+							MapforNgram.put(line, MapforNgram.get(line) - 1);
+						
+						if(i == words.length - 1) break;
+						String ngram = words[i] + " " + words[i+1];
+						
+						double[] ocs = _model.eval(ngram.split(" ")); //ocs: 每一個instance的top-n結果的信心值
+						
+						if(_model.getBestOutcome(ocs).equals("pos"))
+							MapforNgram.put(line, MapforNgram.get(line) + 1);
+						else if(_model.getBestOutcome(ocs).equals("neg"))
+							MapforNgram.put(line, MapforNgram.get(line) - 1);
+					}
+					for(int i = 0; i < words.length; i++){//get ngram
+						String ngram = "";
+						if(i == words.length) break;
+						for(int j = i; j < 1 + i; j++){
+							ngram += words[j] + " ";
+						}
+						double[] ocs = _model.eval(ngram.split(" ")); //ocs: 每一個instance的top-n結果的信心值
+						//System.out.println("(" + _model.getBestOutcome(ocs) + ", "+ ocs[ocs.length-1] + ") " + ngram);	
+						
+						if(_model.getBestOutcome(ocs).equals("pos"))
+							MapforNgram.put(line, MapforNgram.get(line) + 1);
+						else if(_model.getBestOutcome(ocs).equals("neg"))
+							MapforNgram.put(line, MapforNgram.get(line) - 1);
+					}
+					
+				}else if(N != 0 && words.length >= N){//for ngram
 					for(int i = 0; i < words.length; i++){//get ngram
 						String ngram = "";
 						if(i == words.length - N + 1) break;
