@@ -14,14 +14,15 @@ import java.util.regex.Pattern;
 
 import common.Constant;
 import data.FourField;
+import feature.RemoveEmoji;
 import twitter4j.Place;
 
 public class Paper_emoticon {
-	static PrintWriter output,output_with_emoji;
 	FileReader file;
 	BufferedReader reader;
 	Matcher matcher;
 	Pattern pattern;
+	RemoveEmoji em;
 	int mode = 1;
 	int exportCounter = 0;
 	int posC = 0;
@@ -47,19 +48,14 @@ public class Paper_emoticon {
 //	}
 	
 	public Paper_emoticon(){
-
 		//System.out.println("Export: "+m.exportCounter);
 		//System.out.println("Pos: "+m.posC+"\nNeu: "+m.neuC+"\nNeg: "+m.negC+"\nNone: "+m.noneC);
+		em = new RemoveEmoji();
 	}
 	
 	public void execute(String path, boolean hasEmoji){
-		output();
-		output_with_emoji();
 		readFile(path);
 		extract(hasEmoji);
-		System.out.println(count);
-		output.close();
-		output_with_emoji.close();
 	}
 	
 	public void readFile(String path) {
@@ -82,34 +78,22 @@ public class Paper_emoticon {
 				reader.readLine();
 				reader.readLine();
 				polarity = mode_origin();	
-				System.out.println(content);
-				if(!polarity.equals("none")){
-					System.out.println(88);
-				}
+
 				if(!polarity.equals("none") && hasEmoji){
-					System.out.println("84");
-					if(!content.equals("")){			
+					boolean isWhitespace = content.matches("^\\s*$");
+					if(!isWhitespace){	
 						addData(hashTag,content,polarity);
 					}
-//					output_with_emoji.println(hashTag);
-//					output_with_emoji.println(content);
-//					output_with_emoji.println(polarity);
-//					output_with_emoji.println("***");
 				}
 				
 				if(!polarity.equals("none") && !hasEmoji){
-					System.out.println("99");
-					if(!content.equals("")){
+					content =em.rmEmoji(content);
+					boolean isWhitespace = content.matches("^\\s*$");
+					if(!isWhitespace){
 						addData(hashTag,content,polarity);
 					}
-//					output.println(hashTag);
-//					output.println(content);
-//					output.println(polarity);
-////					output.println();
-//					output.println("***");
-					exportCounter++;
 				}
-				System.out.println(exportCounter);
+//				System.out.println(exportCounter);
 			}
 			
 		} catch (IOException e) {
@@ -127,9 +111,9 @@ public class Paper_emoticon {
 		f.hashTag = hashTagALi;
 		f.content = this.content;
 		f.polarity = this.polarity;
-		Constant.trainingData.add(f);
-		
+		Constant.trainingData.add(f);	
 	}
+	
 	//original paper definition
 	public String mode_origin(){
 		int poleCount = 0;
@@ -160,7 +144,7 @@ public class Paper_emoticon {
 		noneC++;
 		return "none";
 	}
-	
+	/*
 	//output file
 	public void output(){
 		try {
@@ -181,6 +165,5 @@ public class Paper_emoticon {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
+	}*/
 }
