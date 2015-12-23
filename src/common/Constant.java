@@ -21,6 +21,7 @@ public class Constant {
 	public static boolean removeUnMeaning = false;
 	public static boolean stem = false;
 	public static boolean negation = false;
+	public static boolean hasStopword = false;
 	
 	//navie, me
 	public static String classifier="";
