@@ -110,7 +110,7 @@ public class Main {
 			System.out.println(Constant.trainingData.get(i).content +" " + Constant.trainingData.get(i).polarity);		
 		}	
 		
-		//MEClassifier();
+		MEClassifier();
 		//training
 		//me
 		//mt = new MaxEnt_train();

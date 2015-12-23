@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -55,6 +56,15 @@ public class UIMain extends JFrame {
 	JRadioButton removeMultiple;
 	JRadioButton negataion;
 	JRadioButton stem;
+	
+	//classifier
+	JLabel classifierName;
+	JCheckBox unigram;
+	JCheckBox bigram;
+	JCheckBox uniPlbigram;
+	JCheckBox uniPlPos;
+	JCheckBox no;
+	
 
 	public static void main(String[] args) {
 		new UIMain();
@@ -333,7 +343,6 @@ public class UIMain extends JFrame {
 	}
 	
 	public void preprocssingPage(){
-		System.out.println("330");
 		preprocessingMes = new JLabel("前處理");
 		removePun =new JRadioButton("移除標點符號");
 		removeStopWord =new JRadioButton("移除stopwords");
@@ -377,5 +386,9 @@ public class UIMain extends JFrame {
 				SpringLayout.NORTH, negataion);
 		sideBarLayout.putConstraint(SpringLayout.WEST, stem, 230,
 				SpringLayout.WEST, sidebar);
+	}
+	
+	public void classifier(){
+		
 	}
 }
