@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import common.Constant;
 import data.FourField;
+import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import feature.CreateNgram;
 import opennlp.maxent.BasicEventStream;
 import opennlp.maxent.GIS;
@@ -21,8 +22,10 @@ import opennlp.model.EventStream;
 import opennlp.model.OnePassRealValueDataIndexer;
 
 public class MaxEnt_train {
+	MaxentTagger tagger;
 	public void output_train(int N){
 		try{
+			tagger = new MaxentTagger("models/english-left3words-distsim.tagger");
 			BufferedWriter bw = new BufferedWriter(new FileWriter("tweetforMaxent.txt"));
 			ArrayList<FourField> trainingData = Constant.trainingData;
 			for(int i = 0; i < trainingData.size() ; i++ ){
@@ -30,7 +33,22 @@ public class MaxEnt_train {
 				String label = trainingData.get(i).polarity;
 				String[] words = content.split(" ");
 				
-				if(N != 0 && words.length >= N){
+				if(N == 4){//uni + pos
+					for(int j = 0; j < words.length; j++){
+						String tag = tagger.tagTokenizedString(words[j]);
+						bw.write(words[j] + " " + tag + " " + label);//unigram
+						bw.newLine();
+					}
+				}else if(N == 3){//unigram + bigram
+					for(int j = 0; j < words.length; j++){
+						bw.write(words[j] + " " + label);//unigram
+						bw.newLine();
+						
+						if(j == words.length - 1) break;
+						bw.write(words[j] + " " + words[j+1] + " " + label);
+						bw.newLine();
+					}
+				}else if(N != 0 && words.length >= N){
 					for(int j = 0; j < words.length; j++){//get ngram
 						String ngram = "";
 						if(j == words.length - N + 1) break;
