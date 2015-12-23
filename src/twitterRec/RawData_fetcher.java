@@ -15,7 +15,7 @@ import twitter4j.StatusListener;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 
-public class RawData_fetcher {
+public class rawData_fetcher {
 	static PrintWriter output,output_with_emoji;
 	int counter = 0;
 	int tweetsSize = 10000;
@@ -27,7 +27,7 @@ public class RawData_fetcher {
 	int exportCounter = 0;
 	
 	public static void main(String[] args){
-		RawData_fetcher rf = new RawData_fetcher();
+		rawData_fetcher rf = new rawData_fetcher();
 		rf.output();
 		rf.output_with_emoji();
 		rf.twitterStatusListener();
