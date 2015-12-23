@@ -48,8 +48,8 @@ public class MaxEnt_train {
 						bw.write(words[j] + " " + words[j+1] + " " + label);
 						bw.newLine();
 					}
-				}else if(N != 0 && words.length >= N){
-					for(int j = 0; j < words.length; j++){//get ngram
+				}else if(N != 0 && words.length >= N){//unigram or bigram
+					for(int j = 0; j < words.length; j++){
 						String ngram = "";
 						if(j == words.length - N + 1) break;
 						for(int k = j; k < N + j; k++){
