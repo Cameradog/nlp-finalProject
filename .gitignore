@@ -1,3 +1,9 @@
 /bin
 dataset.csv
+<<<<<<< HEAD
+/src/main/Main.java
+/target/classes/main/Main.class
+resource/twitterFile
+=======
 
+>>>>>>> f3e5b945ffffd16e3ac21eb33c28c2fbbfe07740
