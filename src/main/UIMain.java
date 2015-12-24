@@ -65,6 +65,7 @@ public class UIMain extends JFrame {
 	JRadioButton removeMultiple;
 	JRadioButton negataion;
 	JRadioButton stem;
+	JRadioButton stopwords;
 
 	// classifier
 	JLabel classifierName;
@@ -87,6 +88,7 @@ public class UIMain extends JFrame {
 		int returnValue = fileChooser.showOpenDialog(null);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = fileChooser.getSelectedFile();
+			Constant.FilePath = selectedFile.getAbsolutePath();
 			System.out.println(selectedFile.getAbsolutePath());
 		}
 	}
@@ -270,7 +272,7 @@ public class UIMain extends JFrame {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				System.out
 						.println(Constant.rawDataProcess + "  RawDataProcess");
-				System.out.println(Constant.removePun + "  removePu");
+				System.out.println(Constant.removePunAndNum + "  removePu ");
 				System.out.println(Constant.removeUnMeaning
 						+ "  removeUnMeaning");
 				System.out.println(Constant.stem + "  stem");
@@ -278,10 +280,13 @@ public class UIMain extends JFrame {
 				System.out.println(Constant.classifier + "  classifier");
 				System.out.println(Constant.classifierFeature
 						+ "  classifierFeature");
+				System.out.println(Constant.hasStopword +" stopword");
 				if (!hasSelectedExtractData || !hasSelectedPreprocess
 						|| !hasSelectedClassifier) {
 					JOptionPane.showMessageDialog(getContentPane(),
 							"請選完選項");
+				} else{
+					new Main().start();
 				}
 			}
 
@@ -487,29 +492,33 @@ public class UIMain extends JFrame {
 
 	public void preprocssingPage() {
 		preprocessingMes = new JLabel("前處理");
-		removePun = new JRadioButton("移除標點符號");
-		removeStopWord = new JRadioButton("移除stopwords");
+		removePun = new JRadioButton("移除標點符號和數字");
+//		removeStopWord = new JRadioButton("移除stopwords");
 		removeMultiple = new JRadioButton("移除出現多次無意義詞");
 		negataion = new JRadioButton("否定的ngram改進");
 		stem = new JRadioButton("stem");
+		stopwords = new JRadioButton("移除stopwords");
 
 		sidebar.add(preprocessingMes);
 		sidebar.add(removePun);
 		sidebar.add(removeMultiple);
 		sidebar.add(negataion);
 		sidebar.add(stem);
+		sidebar.add(stopwords);
 		preProcessingItemListener pi = new preProcessingItemListener();
 		removePun.addItemListener(pi);
-		removeStopWord.addItemListener(pi);
+		//removeStopWord.addItemListener(pi);
 		removeMultiple.addItemListener(pi);
 		negataion.addItemListener(pi);
 		stem.addItemListener(pi);
+		stopwords.addItemListener(pi);
 		preprocessingMes.setFont(new Font("Serif", Font.BOLD, 30));
 		removePun.setFont(new Font("Serif", Font.PLAIN, 45));
 		removeMultiple.setFont(new Font("Serif", Font.PLAIN, 45));
-		removeStopWord.setFont(new Font("Serif", Font.PLAIN, 45));
+		//removeStopWord.setFont(new Font("Serif", Font.PLAIN, 45));
 		negataion.setFont(new Font("Serif", Font.PLAIN, 45));
 		stem.setFont(new Font("Serif", Font.PLAIN, 45));
+		stopwords.setFont(new Font("Serif", Font.PLAIN, 45));
 
 		sideBarLayout.putConstraint(SpringLayout.NORTH, preprocessingMes, 20,
 				SpringLayout.NORTH, sidebar);
@@ -534,6 +543,11 @@ public class UIMain extends JFrame {
 		sideBarLayout.putConstraint(SpringLayout.NORTH, stem, 70,
 				SpringLayout.NORTH, negataion);
 		sideBarLayout.putConstraint(SpringLayout.WEST, stem, 230,
+				SpringLayout.WEST, sidebar);
+		
+		sideBarLayout.putConstraint(SpringLayout.NORTH, stopwords, 70,
+				SpringLayout.NORTH, stem);
+		sideBarLayout.putConstraint(SpringLayout.WEST, stopwords, 230,
 				SpringLayout.WEST, sidebar);
 	}
 
@@ -646,14 +660,16 @@ public class UIMain extends JFrame {
 						3, 3, Color.black));
 
 			}
-			if (jb.getText().equals("移除標點符號")) {
-				Constant.removePun = jb.isSelected();
+			if (jb.getText().equals("移除標點符號和數字")) {
+				Constant.removePunAndNum = jb.isSelected();
 			} else if (jb.getText().equals("移除出現多次無意義詞")) {
 				Constant.removeUnMeaning = jb.isSelected();
 			} else if (jb.getText().equals("否定的ngram改進")) {
 				Constant.negation = jb.isSelected();
 			} else if (jb.getText().equals("stem")) {
 				Constant.stem = jb.isSelected();
+			} else if( jb.getText().equals("移除stopwords")){
+				Constant.hasStopword = jb.isSelected();
 			}
 		}
 	}
@@ -664,7 +680,7 @@ public class UIMain extends JFrame {
 			// TODO Auto-generated method stub
 			JCheckBox jb = (JCheckBox) (e.getSource());
 			if (jb.getText().equals("unigram")) {
-				Constant.classifierFeature = "ui";
+				Constant.classifierFeature = "uni";
 			} else if (jb.getText().equals("bigram")) {
 				Constant.classifierFeature = "bi";
 			} else if (jb.getText().equals("unigram+bigram")) {

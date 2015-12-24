@@ -82,6 +82,7 @@ public class Improved_emoticon {
 			while ((line = reader.readLine()) != null) {
 				hashTag = line;
 				content = reader.readLine();
+				//System.out.println(content);
 				reader.readLine();
 				reader.readLine();
 				polarity = mode_improve();

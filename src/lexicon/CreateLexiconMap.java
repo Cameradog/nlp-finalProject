@@ -25,6 +25,7 @@ public class CreateLexiconMap {
 
 	public void execute() {
 		readFile();
+		
 	}
 
 	public void readFile() {
