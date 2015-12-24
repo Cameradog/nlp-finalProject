@@ -119,10 +119,9 @@ public class Main {
 	public void classifier() {
 		Operate o = new Operate();
 		if (Constant.classifier.equals("navie")) {
-
+			
 		} else if (Constant.classifier.equals("me")) {
 			if (Constant.classifierFeature.equals("uni")) {
-				System.out.println("129");
 				o.unigram();
 			} else if (Constant.classifierFeature.equals("bi")) {
 				o.bigram();
