@@ -77,7 +77,7 @@ public class ReadFileService {
 					System.out.println(w.pos);
 				}*/
 				Constant.lexicon.put(w, polarity);
-				System.out.println("82 " +line);
+				//System.out.println("82 " +line);
 			}
 			
 			reader.close();

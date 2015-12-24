@@ -272,7 +272,7 @@ public class UIMain extends JFrame {
 			public void mouseClicked(java.awt.event.MouseEvent evt) {
 				System.out
 						.println(Constant.rawDataProcess + "  RawDataProcess");
-				System.out.println(Constant.removePun + "  removePu");
+				System.out.println(Constant.removePunAndNum + "  removePu ");
 				System.out.println(Constant.removeUnMeaning
 						+ "  removeUnMeaning");
 				System.out.println(Constant.stem + "  stem");
@@ -492,7 +492,7 @@ public class UIMain extends JFrame {
 
 	public void preprocssingPage() {
 		preprocessingMes = new JLabel("前處理");
-		removePun = new JRadioButton("移除標點符號");
+		removePun = new JRadioButton("移除標點符號和數字");
 //		removeStopWord = new JRadioButton("移除stopwords");
 		removeMultiple = new JRadioButton("移除出現多次無意義詞");
 		negataion = new JRadioButton("否定的ngram改進");
@@ -660,8 +660,8 @@ public class UIMain extends JFrame {
 						3, 3, Color.black));
 
 			}
-			if (jb.getText().equals("移除標點符號")) {
-				Constant.removePun = jb.isSelected();
+			if (jb.getText().equals("移除標點符號和數字")) {
+				Constant.removePunAndNum = jb.isSelected();
 			} else if (jb.getText().equals("移除出現多次無意義詞")) {
 				Constant.removeUnMeaning = jb.isSelected();
 			} else if (jb.getText().equals("否定的ngram改進")) {

@@ -17,7 +17,7 @@ public class Constant {
 	//default, lexicon, improve
 	public static String rawDataProcess="";
 	
-	public static boolean removePun = false;
+	public static boolean removePunAndNum = false;
 	public static boolean removeUnMeaning = false;
 	public static boolean stem = false;
 	public static boolean negation = false;

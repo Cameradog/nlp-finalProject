@@ -12,6 +12,7 @@ import classifer.MaxEnt_train;
 import common.Constant;
 import data.FieldType;
 import feature.CreateNgram;
+import feature.Negtation;
 import feature.RemoveEmoji;
 import feature.RemovePunctuation;
 import feature.RemoveStopwords;
@@ -30,6 +31,7 @@ public class Main {
 	Tokenization ti;
 	Paper_emoticon pm;
 	Improved_emoticon ie;
+	Negtation ng;
 
 	String filepath = Constant.FilePath;
 
@@ -60,6 +62,7 @@ public class Main {
 			readTrainingDataImprovedEmoticon(filepath, false);
 		} else if (rawDataProcess.equals("lexicon")) {
 			createLexiconMap();
+			readingTrainingData(filepath);
 		}
 	}
 
@@ -68,6 +71,7 @@ public class Main {
 		rmvStopwords.createStopwordsBank();
 
 		rmvPun = new RemovePunctuation();
+		ng = new Negtation();
 		for (int i = Constant.trainingData.size() - 1; i >= 0; i--) {
 			String content = Constant.trainingData.get(i).content;
 			String newContent = content;
@@ -78,8 +82,9 @@ public class Main {
 				
 			}
 			// punctuation
-			if (Constant.removePun) {
-				newContent = rmvPun.getLineWithNoPunctuation(newContent);
+			if (Constant.removePunAndNum) {
+				newContent = rmvPun.rmNum(newContent);
+				newContent = rmvPun.rmPunct(newContent);
 			}
 
 			if (Constant.stem) {
@@ -91,7 +96,7 @@ public class Main {
 			}
 
 			if (Constant.negation) {
-
+				newContent = ng.mergeDont(newContent);
 			}
 			// update
 			Constant.trainingData.get(i).content = newContent;
@@ -118,11 +123,13 @@ public class Main {
 
 	public void classifier() {
 		Operate o = new Operate();
+		
 		if (Constant.classifier.equals("navie")) {
-			
+
 		} else if (Constant.classifier.equals("me")) {
 			if (Constant.classifierFeature.equals("uni")) {
 				o.unigram();
+				
 			} else if (Constant.classifierFeature.equals("bi")) {
 				o.bigram();
 			} else if (Constant.classifierFeature.equals("unibi")) {
@@ -153,6 +160,10 @@ public class Main {
 
 	public void readTrainingDataImprovedEmoticon(String path, boolean hasEmoji) {
 		ie.execute(path, hasEmoji);
+	}
+	
+	public void readingTrainingData(String path){
+		ReadFileService.getServ().readTrainingData(path, FieldType.four);
 	}
 
 	public void createLexiconMap() {
