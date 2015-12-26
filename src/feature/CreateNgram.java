@@ -157,7 +157,6 @@ public class CreateNgram {
 		Map<String, Integer> dataMap = new HashMap<String, Integer>();
 		for (int i = 0; i < datas.size(); i++) {
 			for (int k = 0; k < datas.get(i).content.split("\\s+").length - N+1; k++) {
-				//System.out.println(datas.get(i).content);
 				String str = "";
 				for (int j = 1; j <= N; j++) {
 					if (j == 1) {
@@ -190,12 +189,10 @@ public class CreateNgram {
 	}
 	
 	public Map<String,Integer> getNgramMapWithPolarity(ArrayList<FourField> datas, int N){
-		//Map<String, Integer> dataMap = new HashMap<String, Integer>();
 		Map<String, Integer> polarityMap = new HashMap<String, Integer>();
 		for (int i = 0; i < datas.size(); i++) {
 			String polarity = datas.get(i).polarity;
 			for (int k = 0; k < datas.get(i).content.split("\\s+").length - N+1; k++) {
-				//System.out.println(datas.get(i).content);
 				String str = "";
 				for (int j = 1; j <= N; j++) {
 					if (j == 1) {
@@ -219,10 +216,7 @@ public class CreateNgram {
 					} else if(polarity.equals("neu")){
 					    polarityMap.put(str, 0);
 					}
-					//System.out.println("Str: " + str +
-					//		" "+ polarityMap.get(str));
 				} else if(polarityMap.get(str)!=null && !polarity.equals("none")){
-					//dataMap.put(str, dataMap.get(str) + 1);
 					if(polarity.equals("pos")){
 						polarityMap.put(str, polarityMap.get(str) + 1);
 					} else if(polarity.equals("neg")){
@@ -230,13 +224,11 @@ public class CreateNgram {
 					} else if(polarity.equals("neu")){
 					    polarityMap.put(str, polarityMap.get(str) + 0);
 					}
-					//System.out.println("Str: " + str +  " " + polarityMap.get(str));
 				}
 			}
 
 		}
 		return polarityMap;
-		//return null;
 	}
 	
 	public String posTagProcess(String word){

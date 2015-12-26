@@ -27,7 +27,7 @@ import twitter4j.TwitterStreamFactory;
 import twitter4j.FilterQuery;
 import twitter4j.api.HelpResources.Language;
 
-public class main {
+public class Main {
 	static PrintWriter output,output_with_emoji;
 	static int counter = 0;
 	int exportCounter = 0;
@@ -56,7 +56,7 @@ public class main {
 			+ "😐|😞|💔|☹|😪|😶️|😔|😢";
 	
 	public static void main(String args[]){
-		main main = new main();
+		Main main = new Main();
 		main.output();
 		main.output_with_emoji();
 		TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
