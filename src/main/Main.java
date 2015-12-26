@@ -83,8 +83,9 @@ public class Main {
 			}
 			// punctuation
 			if (Constant.removePunAndNum) {
-				newContent = rmvPun.rmNum(newContent);
-				newContent = rmvPun.rmPunct(newContent);
+//				newContent = rmvPun.rmNum(newContent);
+//				newContent = rmvPun.rmPunct(newContent);
+				newContent = rmvPun.rmPunctAndNum(newContent);
 			}
 
 			if (Constant.stem) {
@@ -100,10 +101,10 @@ public class Main {
 			}
 			// update
 			Constant.trainingData.get(i).content = newContent;
-
+			//System.out.println(newContent);
 			// remove if white space
 			boolean isWhitespace = newContent.matches("^\\s*$");
-			if (isWhitespace) {
+			if (isWhitespace || Constant.trainingData.get(i).polarity.equals("none")) {
 				Constant.trainingData.remove(i);
 			}
 			String line = Constant.trainingData.get(i).content;

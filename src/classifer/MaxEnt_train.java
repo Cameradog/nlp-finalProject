@@ -63,7 +63,7 @@ public class MaxEnt_train {
 					bw.write(" " + label);
 					bw.newLine();	
 				}
-				System.out.println(content);
+				//System.out.println(content);
 			}
 			bw.close();
 		}catch(IOException e){

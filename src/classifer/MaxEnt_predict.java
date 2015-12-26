@@ -8,6 +8,8 @@ import java.util.Map;
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import feature.CreateNgram;
+import feature.RemovePunctuation;
+import feature.RemoveStopwords;
 import opennlp.maxent.BasicContextGenerator;
 import opennlp.maxent.ContextGenerator;
 import opennlp.model.GenericModelReader;
@@ -28,7 +30,8 @@ public class MaxEnt_predict {
 	public void predict(int N){
 		//這裡改test資料，和model檔名
 		String dataFileName = "test.txt", modelFileName = "tweetforMaxentModel.txt";
-
+		RemoveStopwords rs = new RemoveStopwords();
+		RemovePunctuation rp = new RemovePunctuation();
 		MaxentTagger tagger;
 		MaxEnt_predict predictor = null;
 		try {
@@ -40,6 +43,10 @@ public class MaxEnt_predict {
 	        BufferedReader br = new BufferedReader(new FileReader(dataFileName));
 	        while (br.ready()) {
 				String line = br.readLine();
+				line =rs.getLineWithNoStopwords(line);
+				line = rp.rmPunctAndNum(line);
+							
+				
 				MapforNgram.put(line, 0);
 				String[] words = line.split(" ");
 				if(N == 4){//uni + pos

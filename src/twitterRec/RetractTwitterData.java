@@ -68,7 +68,6 @@ public class RetractTwitterData {
 									+ i + "].innerHTML");
 					String time = (String)((JavascriptExecutor) driver)
 							.executeScript("return $('.js-short-timestamp')[" +i+"].innerHTML");
-//					System.out.println(result +" " + time);
 					disassemble(result,time);
 					System.out.println("Time: " +time +"\n" + "Content: "+ result +"\n\n");
 				} catch(Exception e){
@@ -79,7 +78,6 @@ public class RetractTwitterData {
 			emptyArticle();
 			scrollDown();
 			Force_Waiting_Longer();
-
 			Force_Waiting();
 		}
 
@@ -134,15 +132,14 @@ public class RetractTwitterData {
 			matcher = pattern.matcher(disassStr[i]);
 			if(!matcher.find() && !disassStr[i].equals(" ") && !disassStr[i].equals("")){
 				disassStr2 = disassStr[i].split(splitStr2);
-//				System.out.println("i: "+i+" "+disassStr[i]);
 				for(int j=0; j<disassStr2.length; j++){
 					if(!disassStr2[j].equals("")){
 						tweets = tweets + disassStr2[j] + " ";
-//						System.out.println("j: "+j+" "+disassStr2[j]);
 					}
 				}
 			}
 		}
+		
 		if((tweets.substring(tweets.length()-1)).equals(" ")){
 			tweets = tweets.substring(0,tweets.length()-1);
 		}
@@ -154,7 +151,6 @@ public class RetractTwitterData {
 
 		output.println(tweets);
 		output.println("***");
-//		output.println();
 	}
 
 	//output file
@@ -168,5 +164,4 @@ public class RetractTwitterData {
 			e.printStackTrace();
 		}
 	}
-
 }

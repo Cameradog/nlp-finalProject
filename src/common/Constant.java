@@ -9,7 +9,7 @@ import data.Word;
 public class Constant {
 	public static ArrayList<FourField> trainingData = new ArrayList<FourField>();
 	public static HashMap<String, Boolean> stopwords= new HashMap<String, Boolean>();
-	public static String[] punctuation = {",",".","!","_","+","=","(",")","@","#","'","\"",":","?"};
+	public static String[] punctuation = {",",".","!","_","+","=","(",")","@","#","'","\"",":","?", "-" ,"&"};
 	public static HashMap<Word, String> lexicon = new HashMap<Word,String>();
 	public static String FilePath;
 	
@@ -29,5 +29,6 @@ public class Constant {
 	//uni, bi, unibi, unipo ,no
 	public static String classifierFeature=""; 
 	
+	//public static String
 	
 }

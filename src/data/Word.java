@@ -8,14 +8,18 @@ public class Word {
 	public boolean equals(Object obj) {
 		if(obj instanceof Word){
 			Word compare = (Word)obj;
-			
+			boolean posIsOK =false;
+			//System.out.println(this.pos +" " + compare.pos);
+			if(this.pos.equals("anypos") || compare.pos.equals("anypos") || this.pos.equals(compare.pos)){
+				posIsOK= true;
+			}
 			return this.word.equals(compare.word) 
-					&&this.pos.equals(compare.pos); 
+					&&posIsOK; 
 		} 
 		return false;
 	}
 	@Override
 	public int hashCode(){
-	    return (word+pos).hashCode();
+	    return (word).hashCode();
 	}
 }

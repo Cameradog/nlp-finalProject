@@ -14,7 +14,16 @@ public class CreateLexiconMap {
 	int polarity;
 	PosTag pt;
 	public static int count=0;
-
+	
+	public static void main(String[] args){
+		CreateLexiconMap c =new CreateLexiconMap();
+		c.readFile();
+		c.test();
+	}
+	
+	public void test(){
+		//System.out.println(getLinePolarity("dog"));
+	}
 	/*
 	 * public static void main(String[] args){ new CreateLexiconMap(); }
 	 */
@@ -31,6 +40,8 @@ public class CreateLexiconMap {
 	public void readFile() {
 		ReadFileService.getServ().readLexiconDatabese(
 				"resource/subjclueslen1-HLTEMNLP05.tff");
+		ReadFileService.getServ().readPosWordsFile("resource/positive-words.txt");
+		ReadFileService.getServ().readNegWordsFile("resource/negative-words.txt");
 	}
 
 	public String getLinePolarity(String line) {
@@ -44,13 +55,15 @@ public class CreateLexiconMap {
 		String result="";
 		for (int i = 0; i < words.length; i++) {
 			String pos = pt.getWordPosTag(words[i]);
+			//System.out.println(words[i] +" " + pos);
 			if (pos != null) {
 				Word w = new Word();
 				w.word = words[i];
 				w.pos = pos;
-
 				// get polarity if exist;
 				Map<Word, String> hMap = Constant.lexicon;
+				//System.out.println(w.word +" " + w.pos +" "+hMap.get(w));
+
 				if (hMap.get(w) != null) {
 					if(!enter){
 						enter = true;
@@ -70,7 +83,7 @@ public class CreateLexiconMap {
 		}
 		score =countPolarity(array);
 		if(!enter){
-			result = "ignore";
+			result = "neu";
 		}else{
 			if(score ==0){
 				result =  "neu";

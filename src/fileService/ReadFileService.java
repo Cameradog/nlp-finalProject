@@ -11,16 +11,18 @@ import data.FieldType;
 import data.FourField;
 import data.FourFieldService;
 import data.Word;
+import feature.RemoveEmoji;
 
 public class ReadFileService {
 	private static ReadFileService readFileService = null;
-
+	private static RemoveEmoji re;
 	// get service and you can use function and you can access this java's
 	// function
 	// for example:FieldService.getServ().createNewField
 	public static ReadFileService getServ() {
 		if (readFileService == null) {
 			readFileService = new ReadFileService();
+			re = new RemoveEmoji();
 		}
 		return readFileService;
 	}
@@ -45,6 +47,7 @@ public class ReadFileService {
 							// content
 						} else if (i == 1) {
 							f.content = reader.readLine();
+							f.content =re.rmEmoji(f.content);
 						} else if (i == 2) {
 							f.polarity = reader.readLine();
 						} else if (i == 3) {
@@ -80,6 +83,58 @@ public class ReadFileService {
 				//System.out.println("82 " +line);
 			}
 			
+			
+			reader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void readPosWordsFile(String path){
+		BufferedReader reader;
+		String line;
+		try {
+			reader = new BufferedReader(new FileReader(path));
+			while ((line = reader.readLine()) != null) {
+				Word w = new Word();
+				w.word = line;
+				w.pos = "anypos";
+				String polarity = "positive";
+				
+				/*
+				if(!(w.pos.equals("noun") || w.pos.equals("adj") || w.pos.equals("verb") || w.pos.equals("adverb"))){
+					System.out.println(w.pos);
+				}*/
+				if(Constant.lexicon.get(w) ==null){
+					Constant.lexicon.put(w, polarity);
+				}
+				//System.out.println("82 " +line);
+			}
+		
+			reader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void readNegWordsFile(String path){
+		BufferedReader reader;
+		String line;
+		try {
+			reader = new BufferedReader(new FileReader(path));
+			while ((line = reader.readLine()) != null) {
+				Word w = new Word();
+				w.word = line;
+				w.pos = "anypos";
+				String polarity = "negative";
+				
+				if(Constant.lexicon.get(w) ==null){
+					Constant.lexicon.put(w, polarity);
+				}
+			}
+		
 			reader.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
