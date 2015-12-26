@@ -75,12 +75,7 @@ public class ReadFileService {
 				w.pos = line.split("\\s")[3].split("=")[1];
 				String polarity = line.split("\\s")[line.split("\\s").length-1].split("=")[1];
 				
-				/*
-				if(!(w.pos.equals("noun") || w.pos.equals("adj") || w.pos.equals("verb") || w.pos.equals("adverb"))){
-					System.out.println(w.pos);
-				}*/
 				Constant.lexicon.put(w, polarity);
-				//System.out.println("82 " +line);
 			}
 			
 			
@@ -101,15 +96,10 @@ public class ReadFileService {
 				w.word = line;
 				w.pos = "anypos";
 				String polarity = "positive";
-				
-				/*
-				if(!(w.pos.equals("noun") || w.pos.equals("adj") || w.pos.equals("verb") || w.pos.equals("adverb"))){
-					System.out.println(w.pos);
-				}*/
+
 				if(Constant.lexicon.get(w) ==null){
 					Constant.lexicon.put(w, polarity);
 				}
-				//System.out.println("82 " +line);
 			}
 		
 			reader.close();

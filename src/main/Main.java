@@ -35,10 +35,6 @@ public class Main {
 
 	String filepath = Constant.FilePath;
 
-	/*
-	 * public static void main(String[] args){ new Main(); }
-	 */
-
 	public Main() {
 		cl = new CreateLexiconMap();
 		ti = new Tokenization();
@@ -83,8 +79,6 @@ public class Main {
 			}
 			// punctuation
 			if (Constant.removePunAndNum) {
-//				newContent = rmvPun.rmNum(newContent);
-//				newContent = rmvPun.rmPunct(newContent);
 				newContent = rmvPun.rmPunctAndNum(newContent);
 			}
 
@@ -101,7 +95,6 @@ public class Main {
 			}
 			// update
 			Constant.trainingData.get(i).content = newContent;
-			//System.out.println(newContent);
 			// remove if white space
 			boolean isWhitespace = newContent.matches("^\\s*$");
 			if (isWhitespace || Constant.trainingData.get(i).polarity.equals("none")) {
@@ -123,7 +116,7 @@ public class Main {
 	}
 
 	public void classifier() {
-		Operate o = new Operate();
+		MaxEntOperator o = new MaxEntOperator();
 		
 		if (Constant.classifier.equals("navie")) {
 

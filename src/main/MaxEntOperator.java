@@ -3,7 +3,7 @@ package main;
 import classifer.MaxEnt_predict;
 import classifer.MaxEnt_train;
 
-public class Operate {
+public class MaxEntOperator {
 	MaxEnt_train mt;
 	MaxEnt_predict mp;
 	public void MEclassifier(){

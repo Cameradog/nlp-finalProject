@@ -29,8 +29,6 @@ public class Paper_emoticon {
 	int neuC = 0;
 	int negC = 0;
 	int noneC = 0;
-	String fileDir = "tweet_RAW.txt";
-	String filename = "tweet_paper_origin";
 	
 	String hashTag = "";
 	String content = "";
@@ -41,15 +39,7 @@ public class Paper_emoticon {
 	String oriPosPole = "🙂|😃|☺";
 	String oriNegPole = "☹|🙁|😢";
 	
-//	public static void main(String[] args){
-//		Paper_emoticon m = new Paper_emoticon();
-//
-//
-//	}
-	
 	public Paper_emoticon(){
-		//System.out.println("Export: "+m.exportCounter);
-		//System.out.println("Pos: "+m.posC+"\nNeu: "+m.neuC+"\nNeg: "+m.negC+"\nNone: "+m.noneC);
 		em = new RemoveEmoji();
 	}
 	
@@ -93,7 +83,6 @@ public class Paper_emoticon {
 						addData(hashTag,content,polarity);
 					}
 				}
-//				System.out.println(exportCounter);
 			}
 			
 		} catch (IOException e) {
@@ -144,26 +133,4 @@ public class Paper_emoticon {
 		noneC++;
 		return "none";
 	}
-	/*
-	//output file
-	public void output(){
-		try {
-			output = new PrintWriter(new BufferedWriter(new FileWriter(filename+".txt",false)));
-			output.print("");
-			output = new PrintWriter(new BufferedWriter(new FileWriter(filename+".txt",true)));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public void output_with_emoji(){
-		try {
-			output_with_emoji = new PrintWriter(new BufferedWriter(new FileWriter(filename+"_with_emoji.txt",false)));
-			output_with_emoji.print("");
-			output_with_emoji = new PrintWriter(new BufferedWriter(new FileWriter(filename+"_with_emoji.txt",true)));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
 }
