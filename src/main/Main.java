@@ -117,13 +117,28 @@ public class Main {
 
 	public void classifier() {
 		MaxEntOperator o = new MaxEntOperator();
-		
-		if (Constant.classifier.equals("navie")) {
-
+		NaiveOperate no = new NaiveOperate();
+		if (Constant.classifier.equals("naive")) {
+			try {
+				if(Constant.classifierFeature.equals("uni")){
+					no.unigramTest();
+				}
+				else if(Constant.classifierFeature.equals("bi")){
+					no.bigramTest();
+				}
+				else if (Constant.classifierFeature.equals("unipo")){
+					no.uniposTest();
+				}
+				else if (Constant.classifierFeature.equals("improveUnipo")){
+					no.improveUniposTest();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else if (Constant.classifier.equals("me")) {
 			if (Constant.classifierFeature.equals("uni")) {
 				o.unigram();
-				
 			} else if (Constant.classifierFeature.equals("bi")) {
 				o.bigram();
 			} else if (Constant.classifierFeature.equals("unibi")) {
