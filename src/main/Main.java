@@ -126,7 +126,6 @@ public class Main {
 		Operate o = new Operate();
 		
 		if (Constant.classifier.equals("navie")) {
-			
 
 		} else if (Constant.classifier.equals("me")) {
 			if (Constant.classifierFeature.equals("uni")) {
