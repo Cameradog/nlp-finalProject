@@ -12,6 +12,9 @@ import java.util.regex.Pattern;
 import javax.print.attribute.standard.OutputDeviceAssigned;
 import javax.xml.transform.Templates;
 
+import com.sun.jndi.cosnaming.CNCtx;
+
+import feature.CreateNgram;
 import twitter4j.Query;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -37,7 +40,7 @@ public class main {
 	Pattern pattern;
 	Matcher matcher;
 	String hashTag;
-	String content;
+	String content;	
 	//our defined emoticon
 	String positivePole = "😙|🎁|❤|🎉|😘|💋|💟|😍|♥|💛|☺|😊|😋|😻|🎂|😀|😃|💪🏽|💪|💪🏿|💪🏾|👏|👏🏾|👏🏽|👋🏼|😎|😌|😉|🎵|😁|😝|✌|✌🏽️|"
 			+ "💜|💙|💚|💁|✨|😂|👑|🙃|🙏|🙏🏻️|🙏🏽|❄️|👅|🌟|💫|👌🏻|👌🏼|👌|👌🏾|🤗|👍🏼|👍|👍🏾|💗|🙌🏼|🙌|🙌🏾|💐|🎤|😜|🙈|🌻|💟|🙊|💕|"
