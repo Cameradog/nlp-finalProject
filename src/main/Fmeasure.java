@@ -7,7 +7,11 @@ import java.io.IOException;
 
 public class Fmeasure {
 
-	public static void main(String[] args) throws IOException {
+	//public static void main(String[] args) throws IOException {
+		
+	//}
+	
+	public void compare() throws IOException{
 		String[] labels = new String[]{"pos", "neg", "neu"};
 		for(int i = 0; i < 3 ; i++){
 			BufferedReader br_pre_ans = new BufferedReader(new FileReader("resource/testdata/predict_ans.txt"));
@@ -41,9 +45,5 @@ public class Fmeasure {
 			br_pre_ans.close();
 			br_ans.close();		
 		}
-	}
-	
-	public void compare() throws IOException{
-		
 	}
 }
