@@ -2,7 +2,7 @@ package posTag_example;
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
-public class main {
+public class Main {
 	//tagger model
 	MaxentTagger tagger = new MaxentTagger("models/english-left3words-distsim.tagger");
 	
@@ -12,7 +12,7 @@ public class main {
 		String wordsWithTag;
 		String[] tag;
 		
-		main m = new main();
+		Main m = new Main();
 		System.out.println();
 		
 		//tag a single word

@@ -18,15 +18,12 @@ public class CreateLexiconMap {
 	public static void main(String[] args){
 		CreateLexiconMap c =new CreateLexiconMap();
 		c.readFile();
-		c.test();
+		//c.test();
 	}
 	
 	public void test(){
 		//System.out.println(getLinePolarity("dog"));
 	}
-	/*
-	 * public static void main(String[] args){ new CreateLexiconMap(); }
-	 */
 
 	public CreateLexiconMap() {
 		pt = new PosTag();
@@ -55,14 +52,12 @@ public class CreateLexiconMap {
 		String result="";
 		for (int i = 0; i < words.length; i++) {
 			String pos = pt.getWordPosTag(words[i]);
-			//System.out.println(words[i] +" " + pos);
 			if (pos != null) {
 				Word w = new Word();
 				w.word = words[i];
 				w.pos = pos;
 				// get polarity if exist;
 				Map<Word, String> hMap = Constant.lexicon;
-				//System.out.println(w.word +" " + w.pos +" "+hMap.get(w));
 
 				if (hMap.get(w) != null) {
 					if(!enter){
