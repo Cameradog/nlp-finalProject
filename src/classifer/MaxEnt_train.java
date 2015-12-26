@@ -26,7 +26,7 @@ public class MaxEnt_train {
 	public void output_train(int N){
 		try{
 			tagger = new MaxentTagger("models/english-left3words-distsim.tagger");
-			BufferedWriter bw = new BufferedWriter(new FileWriter("tweetforMaxent.txt"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("resource/testdata/tweetforMaxent.txt"));
 			ArrayList<FourField> trainingData = Constant.trainingData;
 			for(int i = 0; i < trainingData.size() ; i++ ){
 				String content = trainingData.get(i).content;
@@ -75,7 +75,7 @@ public class MaxEnt_train {
 	public static boolean USE_SMOOTHING = false;
 	public static double SMOOTHING_OBSERVATION = 0.1;
 	public void training(){
-		String dataFileName = new String("tweetforMaxent.txt");
+		String dataFileName = new String("resource/testdata/tweetforMaxent.txt");
 		String modelFileName = dataFileName.substring(0, dataFileName.lastIndexOf('.')) + "Model.txt";
 		try{
 			FileReader datafr = new FileReader(new File(dataFileName));

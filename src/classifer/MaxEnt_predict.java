@@ -1,8 +1,10 @@
 package classifer;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -29,7 +31,7 @@ public class MaxEnt_predict {
 	
 	public void predict(int N){
 		//這裡改test資料，和model檔名
-		String dataFileName = "test.txt", modelFileName = "tweetforMaxentModel.txt";
+		String dataFileName = "resource/testdata/test.txt", modelFileName = "resource/testdata/tweetforMaxentModel.txt";
 		RemoveStopwords rs = new RemoveStopwords();
 		RemovePunctuation rp = new RemovePunctuation();
 		MaxentTagger tagger;
@@ -120,15 +122,21 @@ public class MaxEnt_predict {
 				}
 			}
 
+	        BufferedWriter bw = new BufferedWriter(new FileWriter("resource/testdata/predict_ans.txt"));
 			for(Map.Entry<String, Integer> entry : MapforNgram.entrySet()){
-				System.out.print(entry.getKey() + " " );
+				bw.write(entry.getKey() + " ");
+				//System.out.print(entry.getKey() + " " );
 				if(entry.getValue() > 0) 
-					System.out.println("pos");
+					bw.write("pos");//System.out.println("pos");
 				else if(entry.getValue() < 0) 
-					System.out.println("neg");
+					bw.write("neg");//System.out.println("neg");
 				else if(entry.getValue() == 0) 
-					System.out.println("neu");
+					bw.write("neu");//System.out.println("neu");
+				bw.newLine();
 			}
+			System.out.println("Finish!");
+			bw.close();
+
 			br.close();
 		} catch (Exception e) {
 			e.printStackTrace();
