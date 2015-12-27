@@ -18,12 +18,12 @@ public class DebugStarter {
 		Constant.removeUnMeaning = true;
 		Constant.stem = true;
 		Constant.negation = true;
-		Constant.hasStopword = false;
+		Constant.hasStopword = true;
 		
 		//navie, me
 		Constant.classifier="me";
 		
 		//uni, bi, unibi, unipo ,no
-		Constant.classifierFeature="uni"; 
+		Constant.classifierFeature="unipo"; 
 	}
 }

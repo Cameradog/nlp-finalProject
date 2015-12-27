@@ -32,6 +32,7 @@ public class Main {
 	Paper_emoticon pm;
 	Improved_emoticon ie;
 	Negtation ng;
+	Fmeasure f;
 
 	String filepath = Constant.FilePath;
 
@@ -47,6 +48,7 @@ public class Main {
 		rawDataProcessing();
 		preProcessing();
 		classifier();
+		compareResult("resource/testdata/predict_ans.txt" , "resource/testdata/ans.txt");
 	}
 
 	public void rawDataProcessing() {
@@ -155,12 +157,12 @@ public class Main {
 		crtNgram = new CreateNgram();
 		// ngram
 		// n gram with val
-		Map<String, Integer> unigramVal = crtNgram.getNgramMapWithValue(
-				Constant.trainingData, FieldType.four, 1);
+//		Map<String, Integer> unigramVal = crtNgram.getNgramMapWithValue(
+//				Constant.trainingData, FieldType.four, 1);
 
 		// n gram with polarity
-		Map<String, Integer> unigramPol = crtNgram.getNgramMapWithPolarity(
-				Constant.trainingData, FieldType.four, 1);
+//		Map<String, Integer> unigramPol = crtNgram.getNgramMapWithPolarity(
+//				Constant.trainingData, FieldType.four, 1);
 	}
 
 	public void readTrainingDataPaperEmoticon(String path, boolean hasEmoji) {
@@ -177,5 +179,10 @@ public class Main {
 
 	public void createLexiconMap() {
 		cl.execute();
+	}
+	
+	public void compareResult(String predictPath , String ansPath){
+		f = new Fmeasure();
+		f.compare(predictPath, ansPath);
 	}
 }
