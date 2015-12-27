@@ -1,0 +1,17 @@
+/lexicon/
+/feature/
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+/twitterRec/
+/common/
+/data/
+/fileService/
+=======
+/common/
+/data/
+/fileService/
+/twitterRec/
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
+/main/
