@@ -1,7 +1,12 @@
 package classifer;
 
 import java.util.HashMap;
+
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
+import feature.RemoveEmoji;
+import feature.RemovePunctuation;
+import feature.RemoveStopwords;
+
 import java.lang.Math;
 public class BigramNaive {
         String test = "";
@@ -21,24 +26,38 @@ public class BigramNaive {
 		double logPos = 0;
 		double logObj = 0;
 		double logNeg = 0;
-		double theta = -16;
+		double theta = -18;
         double countBiPos,countBiNeg,countBiObj;// the sum of bigram's appearing time
         double Entropy;
         
         String Sentiment;
+        RemoveStopwords rmvStopwords;
+    		RemovePunctuation rmvPun;
+    		RemoveEmoji re;
         MaxentTagger tagger;
         double total = 0.0;
 	public static void main(String[] args) {
 		new BigramNaive();
 	}
 
-	public void training() {
-		// unigramTraining(unigram_pos, unigram_obj, unigram_neg);
-		// bigramTraining(bigram_pos, bigram_obj,bigram_neg);
+	public BigramNaive(){
+		re = new RemoveEmoji();
+		rmvStopwords = new RemoveStopwords();
+		rmvPun = new RemovePunctuation();
+		tagger = new MaxentTagger("models/english-left3words-distsim.tagger");
 	}
 	
 	public void setTestString(String testStr){
+		testStr = re.rmEmoji(testStr);
+		testStr = rmvStopwords.getLineWithNoStopwords(testStr);
+		testStr = rmvPun.rmPunctAndNum(testStr);
+		System.out.println(testStr);
 		strArray = testStr.split("\\s+");
+		
+	}
+	
+	public String getHandLabel(){
+		return strArray[strArray.length-1];
 	}
 	
 	public void countUnihashTable(HashMap<String, Integer> unigram_pos,
@@ -109,7 +128,7 @@ public class BigramNaive {
 			Sentiment = "neg";
 		} else
 			Sentiment = "neu";
-		System.out.println("P: "+UniProbP+"\nO: "+UniProbO+"\nN: "+UniProbN);
+//		System.out.println("P: "+UniProbP+"\nO: "+UniProbO+"\nN: "+UniProbN);
 
 		return Sentiment;//may changed to -1,0,1
 	}
@@ -122,7 +141,7 @@ public class BigramNaive {
 			Sentiment = "neg";
 		} else
 			Sentiment = "neu";
-		System.out.println("P: "+BiProbP+"\nO: "+BiProbO+"\nN: "+BiProbN);
+//		System.out.println("P: "+BiProbP+"\nO: "+BiProbO+"\nN: "+BiProbN);
 
 		return Sentiment;
 	}
@@ -135,7 +154,7 @@ public class BigramNaive {
 			Sentiment = "neg";
 		} else
 			Sentiment = "neu";
-		System.out.println("P: "+UniProbP*TagProbP+"\nO: "+UniProbO*TagProbO+"\nN: "+UniProbN*TagProbN);
+//		System.out.println("P: "+UniProbP*TagProbP+"\nO: "+UniProbO*TagProbO+"\nN: "+UniProbN*TagProbN);
 
 		return Sentiment;
 	}
@@ -148,7 +167,7 @@ public class BigramNaive {
 			Sentiment = "neg";
 		} else
 			Sentiment = "neu";
-		System.out.println("P: "+logPos+"\nO: "+logObj+"\nN: "+logNeg);
+//		System.out.println("P: "+logPos+"\nO: "+logObj+"\nN: "+logNeg);
 
 		return Sentiment;
 	}
@@ -162,7 +181,7 @@ public class BigramNaive {
 		UniProbN = 1;
 		
 		
-        for (int i = 0; i < strArray.length; i++) {
+        for (int i = 0; i < strArray.length-1; i++) {
             if (unigram_pos.get(strArray[i]) != null) {
                 UniProbP = UniProbP * (unigram_pos.get(strArray[i]) + 1) / (count+V)*count/(count+count2+count3);//Laplace smoothing add-1
             } else {
@@ -183,7 +202,7 @@ public class BigramNaive {
 //        Entropy=UniProbN*Math.log(UniProbN)+UniProbP*Math.log(UniProbP);
         Entropy=-UniProbN*Math.log(UniProbN)-UniProbP*Math.log(UniProbP)-UniProbO*Math.log(UniProbO);
 //        Entropy=-Math.log(UniProbN)-Math.log(UniProbP)-Math.log(UniProbO);
-        System.out.println("Entropy: "+Entropy);
+//        System.out.println("Entropy: "+Entropy);
         
 
 	}
@@ -196,13 +215,13 @@ public class BigramNaive {
     public void posunigramTraining(HashMap<String, Integer> tag_pos,
     									HashMap<String, Integer> tag_obj,
     									HashMap<String, Integer> tag_neg){
-		tagger = new MaxentTagger("models/english-left3words-distsim.tagger");
+		
 		countUniPoshashTable(tag_pos, tag_obj, tag_neg);
 		TagProbP = 1;
 		TagProbO = 1;
 		TagProbN = 1;
     	
-        for(int i=0; i<strArray.length; i++){
+        for(int i=0; i<strArray.length-1; i++){
         		String tag = getPosTag(strArray[i]);
             
         		if (tag_pos.get(tag) != null) {
@@ -223,7 +242,7 @@ public class BigramNaive {
         
         }			
         
-        System.out.println("TagP: "+Math.log(TagProbP)+"\nTagO: "+Math.log(TagProbO)+"\nTagN: "+Math.log(TagProbN));
+//        System.out.println("TagP: "+Math.log(TagProbP)+"\nTagO: "+Math.log(TagProbO)+"\nTagN: "+Math.log(TagProbN));
 	}
        
     public void biigramTraining(HashMap<String, Integer> unigram_pos,
@@ -237,7 +256,7 @@ public class BigramNaive {
     		BiProbO = 1;
     		BiProbN = 1;
     	
-		for (int i = 0; i < strArray.length - 1; i++) {
+		for (int i = 0; i < strArray.length - 2; i++) {
 			String str1 = strArray[i];
 			String str2 = strArray[i + 1];
 			if (bigram_pos.get(str1 +" "+ str2) != null) {

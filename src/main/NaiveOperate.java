@@ -1,9 +1,12 @@
 package main;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.NClob;
 import java.util.HashMap;
 
@@ -16,6 +19,7 @@ public class NaiveOperate {
 	BufferedReader reader;
 	BigramNaive bn;
 	CreateNgram cn;
+	PrintWriter output;
 	HashMap<String, Integer> uniPos = new HashMap<String,Integer>();
 	HashMap<String, Integer> uniNeu = new HashMap<String,Integer>();
 	HashMap<String, Integer> uniNeg = new HashMap<String,Integer>();
@@ -26,40 +30,48 @@ public class NaiveOperate {
 	HashMap<String, Integer> ptNeu = new HashMap<String,Integer>();
 	HashMap<String, Integer> ptNeg = new HashMap<String,Integer>();
 	
+	String filename = "predict_naive"; //output file name
+	String testFilePath = "test_naive.txt"; //test file name
+	double compareRight = 0;
+	double compareWrong = 0;
+	
 	public NaiveOperate(){
 		cn = new CreateNgram();
 		bn = new BigramNaive();
 		readFile();
+		output();
 //		getUniMap();
 //		getBiMap();
 //		getPosTagMap();
 	}
 	
-	
-	public static void main(String[] args){
-		setting();
-		new Main().start();
-		
-//		System.out.println(Constant.trainingData);
-		NaiveOperate n = new NaiveOperate();
-		try {
-			n.improveUniposTest();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
+//	public static void main(String[] args){
+//		setting();
+//		new Main().start();
+//		
+////		System.out.println(Constant.trainingData);
+//		NaiveOperate n = new NaiveOperate();
+//		try {
+//			n.unigramTest();
+//			n.output.close();
+//			
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
 	public static void setting(){
-		Constant.FilePath = "resource/twitterFile/tweet.txt";
-		//default, lexicon, improve
-		Constant.rawDataProcess="lexicon";
-			
-		Constant.removePunAndNum = true;
-		Constant.removeUnMeaning = true;
-		Constant.stem = true;
-		Constant.negation = true;
-		Constant.hasStopword = true;
+//		Constant.FilePath = "resource/twitterFile/tweet_RAW_3M.txt";
+//		//default, lexicon, improve
+//		Constant.rawDataProcess="default";
+//			
+//		Constant.removePunAndNum = true;
+//		Constant.removeUnMeaning = true;
+//		Constant.stem = true;
+//		Constant.negation = true;
+//		Constant.hasStopword = true;
 		
 		//navie, me
 //		Constant.classifier="navie";
@@ -93,7 +105,7 @@ public class NaiveOperate {
 	
 	public void readFile(){
 		try {
-			file = new FileReader("test.txt");
+			file = new FileReader("resource/testdata/"+testFilePath);
 			reader = new BufferedReader(file);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -103,25 +115,37 @@ public class NaiveOperate {
 	
 	public void getNaiveResult(String classifier) throws IOException{
 		String content = "";
+		String returnPole = "";
+		compareRight = 0;
+		compareWrong	 = 0;
 		while((content = reader.readLine()) != null){
 			if(classifier.equals("uni")){
 				bn.setTestString(content);
 				bn.unigramTraining(uniPos, uniNeu, uniNeg);
 				System.out.println(content);
+				returnPole = bn.getUniResult();
 				System.out.println(bn.getUniResult());
+				output.print(content+" ");
+				output.println(bn.getUniResult());
 			}
 			else if(classifier.equals("bi")){
 				bn.setTestString(content);
 				bn.biigramTraining(uniPos, uniNeu, uniNeg, biPos, biNeu, biNeg);
 				System.out.println(content);
+				returnPole = bn.getBiResult();
 				System.out.println(bn.getBiResult());
+				output.print(content+" ");
+				output.println(bn.getBiResult());
 			}
 			else if(classifier.equals("unipo")){
 				bn.setTestString(content);
 				bn.unigramTraining(uniPos, uniNeu, uniNeg);
 				bn.posunigramTraining(ptPos, ptNeu, ptNeg);
 				System.out.println(content);
+				returnPole = bn.getUniposResult();
 				System.out.println(bn.getUniposResult());
+				output.print(content+" ");
+				output.println(bn.getUniposResult());
 			}
 			else if(classifier.equals("improveUnipo")){
 				bn.setTestString(content);
@@ -129,9 +153,22 @@ public class NaiveOperate {
 				bn.posunigramTraining(ptPos, ptNeu, ptNeg);
 				bn.loglikely();
 				System.out.println(content);
+				returnPole = bn.getImproveUniposResult();
 				System.out.println(bn.getImproveUniposResult());
+				output.print(content+" ");
+				output.println(bn.getImproveUniposResult());
+			}
+
+			if(bn.getHandLabel().equals(returnPole)){
+				compareRight++;
+				System.out.println(compareRight);
+			}
+			else if(!bn.getHandLabel().equals(returnPole)){
+				compareWrong++;
+				System.out.println(compareWrong);
 			}
 		}
+		System.out.println("Correct Ans Rate: "+(compareRight/(compareRight+compareWrong)*100)+"%");
 	}
 	
 	public void getUniMap(){
@@ -158,5 +195,16 @@ public class NaiveOperate {
 		ptPos = (HashMap<String, Integer>) cn.getNgramMapWithPosTag(Constant.trainingData , 1, "pos");
 		ptNeu = (HashMap<String, Integer>) cn.getNgramMapWithPosTag(Constant.trainingData , 1, "neu");
 		ptNeg = (HashMap<String, Integer>) cn.getNgramMapWithPosTag(Constant.trainingData , 1, "neg");
+	}
+	
+	public void output(){
+		try {
+			output = new PrintWriter(new BufferedWriter(new FileWriter("resource/testdata/"+filename+".txt",false)));
+			output.print("");
+			output = new PrintWriter(new BufferedWriter(new FileWriter("resource/testdata/"+filename+".txt",true)));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

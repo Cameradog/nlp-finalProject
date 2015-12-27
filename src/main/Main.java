@@ -118,7 +118,7 @@ public class Main {
 	public void classifier() {
 		MaxEntOperator o = new MaxEntOperator();
 		NaiveOperate no = new NaiveOperate();
-		if (Constant.classifier.equals("naive")) {
+		if (Constant.classifier.equals("navie")) {
 			try {
 				if(Constant.classifierFeature.equals("uni")){
 					no.unigramTest();

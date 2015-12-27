@@ -18,13 +18,17 @@ import feature.RemoveEmoji;
 import twitter4j.Place;
 
 public class Paper_emoticon {
-	FileReader file;
-	BufferedReader reader;
+	FileReader file,fileN;
+	BufferedReader reader,readerN;
 	Matcher matcher;
 	Pattern pattern;
 	RemoveEmoji em;
 	int mode = 1;
 	int exportCounter = 0;
+	// 1M/20000
+	// 2M/46000
+	int rawDataSize = 1000000;
+	int neutralDataSize = 46000;
 	int posC = 0;
 	int neuC = 0;
 	int negC = 0;
@@ -46,12 +50,15 @@ public class Paper_emoticon {
 	public void execute(String path, boolean hasEmoji){
 		readFile(path);
 		extract(hasEmoji);
+		addNeuTralData();
 	}
 	
 	public void readFile(String path) {
 		try {
 			file = new FileReader(path);
-			reader = new BufferedReader(file);			
+			reader = new BufferedReader(file);
+			fileN = new FileReader("resource/twitterFile/neutral_RAW.txt");
+			readerN = new BufferedReader(fileN);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,8 +68,14 @@ public class Paper_emoticon {
 	//extract original paper definition data from raw data
 	public void extract(boolean hasEmoji){
 		String line;
+		int count = 0;
+		System.out.println("emoji extraction...");
 		try {	
 			while((line = reader.readLine()) != null){
+				if(count == rawDataSize){
+					break;
+				}
+				
 				hashTag = line;
 				content = reader.readLine();
 				reader.readLine();
@@ -89,6 +102,44 @@ public class Paper_emoticon {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+	}
+	
+	public void addNeuTralData(){
+		String line;
+		int counter = 0;
+		int ranNum = (int) Math.random()*3 +1;
+		int dataSize = ranNum*neutralDataSize;
+		boolean isWhitespace;
+		System.out.println("add neutral raw data...");
+		try {
+			while((line = readerN.readLine()) != null){
+				if(counter == dataSize){
+					break;
+				}
+				
+				if(counter%ranNum == 0){
+					hashTag = line;
+					content = readerN.readLine();
+					readerN.readLine();
+					readerN.readLine();
+					polarity = "neu";
+					isWhitespace = content.matches("^\\s*$");
+					if(!isWhitespace){	
+						addData(hashTag, content, polarity);
+					}
+					counter++;
+				}
+				else{
+					readerN.readLine();
+					readerN.readLine();
+					readerN.readLine();
+					counter++;
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void addData(String hashTag , String content, String polarity){
