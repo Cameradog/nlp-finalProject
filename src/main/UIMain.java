@@ -77,6 +77,7 @@ public class UIMain extends JFrame {
 	JCheckBox uniPlbigram;
 	JCheckBox uniPlPos;
 	JCheckBox no;
+	JCheckBox improveUniPo;
 
 	public static void main(String[] args) {
 		new UIMain();
@@ -559,6 +560,7 @@ public class UIMain extends JFrame {
 		uniPlbigram = new JCheckBox("unigram+bigram");
 		uniPlPos = new JCheckBox("unigram+pos");
 		no = new JCheckBox("no");
+		improveUniPo = new JCheckBox("improveUniPo");
 		navieBayes = new JLabel("navie Bayes");
 		me = new JLabel("maximum entropy");
 
@@ -570,6 +572,7 @@ public class UIMain extends JFrame {
 		sidebar.add(uniPlbigram);
 		sidebar.add(uniPlPos);
 		sidebar.add(no);
+		sidebar.add(improveUniPo);
 		sidebar.add(classifierChoose);
 		sidebar.add(navieBayes);
 		sidebar.add(me);
@@ -580,6 +583,7 @@ public class UIMain extends JFrame {
 		group.add(uniPlbigram);
 		group.add(uniPlPos);
 		group.add(no);
+		group.add(improveUniPo);
 		navieBayes.setOpaque(true);
 		me.setOpaque(true);
 		classifierItemListener cl = new classifierItemListener();
@@ -588,6 +592,7 @@ public class UIMain extends JFrame {
 		uniPlbigram.addItemListener(cl);
 		uniPlPos.addItemListener(cl);
 		no.addItemListener(cl);
+		improveUniPo.addItemListener(cl);
 		setClassifierActionListener();
 		navieBayes.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3,
 				Color.black));
@@ -601,6 +606,7 @@ public class UIMain extends JFrame {
 		no.setFont(new Font("Serif", Font.PLAIN, 45));
 		navieBayes.setFont(new Font("Serif", Font.PLAIN, 25));
 		me.setFont(new Font("Serif", Font.PLAIN, 25));
+		improveUniPo.setFont(new Font("Serif", Font.PLAIN,45));
 
 		sideBarLayout.putConstraint(SpringLayout.NORTH, classifierName, 20,
 				SpringLayout.NORTH, sidebar);
@@ -646,6 +652,12 @@ public class UIMain extends JFrame {
 				SpringLayout.NORTH, uniPlPos);
 		sideBarLayout.putConstraint(SpringLayout.WEST, no, 240,
 				SpringLayout.WEST, sidebar);
+		
+		sideBarLayout.putConstraint(SpringLayout.NORTH, improveUniPo, 50,
+				SpringLayout.NORTH, no);
+		sideBarLayout.putConstraint(SpringLayout.WEST, improveUniPo, 240,
+				SpringLayout.WEST, sidebar);
+
 	}
 
 	class preProcessingItemListener implements ItemListener {
@@ -689,6 +701,8 @@ public class UIMain extends JFrame {
 				Constant.classifierFeature = "unipo";
 			} else if (jb.getText().equals("no")) {
 				Constant.classifierFeature = "no";
+			} else if (jb.getText().equals("improveUniPo")){
+				Constant.classifierFeature = "improveUniPo";
 			}
 		}
 	}

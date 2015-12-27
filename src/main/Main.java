@@ -32,6 +32,7 @@ public class Main {
 	Paper_emoticon pm;
 	Improved_emoticon ie;
 	Negtation ng;
+	Fmeasure f;
 
 	String filepath = Constant.FilePath;
 
@@ -47,6 +48,7 @@ public class Main {
 		rawDataProcessing();
 		preProcessing();
 		classifier();
+		compareResult("resource/testdata/predict_ans.txt" , "resource/testdata/ans.txt");
 	}
 
 	public void rawDataProcessing() {
@@ -117,13 +119,28 @@ public class Main {
 
 	public void classifier() {
 		MaxEntOperator o = new MaxEntOperator();
-		
-		if (Constant.classifier.equals("navie")) {
-
+		NaiveOperate no = new NaiveOperate();
+		if (Constant.classifier.equals("naive")) {
+			try {
+				if(Constant.classifierFeature.equals("uni")){
+					no.unigramTest();
+				}
+				else if(Constant.classifierFeature.equals("bi")){
+					no.bigramTest();
+				}
+				else if (Constant.classifierFeature.equals("unipo")){
+					no.uniposTest();
+				}
+				else if (Constant.classifierFeature.equals("improveUnipo")){
+					no.improveUniposTest();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else if (Constant.classifier.equals("me")) {
 			if (Constant.classifierFeature.equals("uni")) {
 				o.unigram();
-				
 			} else if (Constant.classifierFeature.equals("bi")) {
 				o.bigram();
 			} else if (Constant.classifierFeature.equals("unibi")) {
@@ -140,12 +157,12 @@ public class Main {
 		crtNgram = new CreateNgram();
 		// ngram
 		// n gram with val
-		Map<String, Integer> unigramVal = crtNgram.getNgramMapWithValue(
-				Constant.trainingData, FieldType.four, 1);
+//		Map<String, Integer> unigramVal = crtNgram.getNgramMapWithValue(
+//				Constant.trainingData, FieldType.four, 1);
 
 		// n gram with polarity
-		Map<String, Integer> unigramPol = crtNgram.getNgramMapWithPolarity(
-				Constant.trainingData, FieldType.four, 1);
+//		Map<String, Integer> unigramPol = crtNgram.getNgramMapWithPolarity(
+//				Constant.trainingData, FieldType.four, 1);
 	}
 
 	public void readTrainingDataPaperEmoticon(String path, boolean hasEmoji) {
@@ -162,5 +179,10 @@ public class Main {
 
 	public void createLexiconMap() {
 		cl.execute();
+	}
+	
+	public void compareResult(String predictPath , String ansPath){
+		f = new Fmeasure();
+		f.compare(predictPath, ansPath);
 	}
 }
