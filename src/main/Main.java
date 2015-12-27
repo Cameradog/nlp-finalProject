@@ -48,7 +48,6 @@ public class Main {
 		rawDataProcessing();
 		preProcessing();
 		classifier();
-		compareResult("resource/testdata/predict_ans.txt" , "resource/testdata/ans.txt");
 	}
 
 	public void rawDataProcessing() {
@@ -150,6 +149,7 @@ public class Main {
 			} else if (Constant.classifierFeature.equals("no")) {
 				o.MEclassifier();
 			}
+			compareResult("resource/testdata/predict_ans.txt" , "resource/testdata/ans.txt");
 		}
 	}
 
