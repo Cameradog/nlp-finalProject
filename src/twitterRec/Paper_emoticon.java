@@ -28,7 +28,7 @@ public class Paper_emoticon {
 	// 1M/20000
 	// 2M/46000
 	int rawDataSize = 1000000;
-	int neutralDataSize = 46000;
+	int neutralDataSize = 0;
 	int posC = 0;
 	int neuC = 0;
 	int negC = 0;
@@ -96,6 +96,7 @@ public class Paper_emoticon {
 						addData(hashTag,content,polarity);
 					}
 				}
+				count++;
 			}
 			
 		} catch (IOException e) {
@@ -107,7 +108,7 @@ public class Paper_emoticon {
 	public void addNeuTralData(){
 		String line;
 		int counter = 0;
-		int ranNum = (int) Math.random()*3 +1;
+		int ranNum = (int) Math.random()*0 +1;
 		int dataSize = ranNum*neutralDataSize;
 		boolean isWhitespace;
 		System.out.println("add neutral raw data...");
